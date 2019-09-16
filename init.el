@@ -67,8 +67,9 @@ This function should only modify configuration layer settings."
           osx-command-as 'super)
      restclient
      (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
-     (shell :variables shell-default-shell 'ansi-term
-            shell-default-term-shell "/bin/zsh")
+     (shell :variables shell-default-shell 'shell)
+     ;; (shell :variables shell-default-shell 'ansi-term
+     ;;       shell-default-term-shell "/bin/zsh")
      ;; docker
      latex
      deft
@@ -79,29 +80,42 @@ This function should only modify configuration layer settings."
      yaml
      react
      (python :variables
-             python-test-runner '(nose pytest)
-             python-backend 'lsp
-             python-lsp-server 'mspyls
-             python-lsp-git-root "~/Github/python-language-server")
+             python-test-runner '(nose pytest))
+             ;; python-test-runner '(nose pytest)
+             ;; python-backend 'lsp
+             ;; python-lsp-server 'mspyls
+             ;; python-lsp-git-root "~/Github/python-language-server")
      ;; (ruby :variables ruby-version-manager 'chruby)
      ;; ruby-on-rails
      lua
      html
-     (javascript :variables javascript-backend 'lsp)
+     (javascript :variables
+                 node-add-modules-path t
+                 javascript-backend 'nil)     
+     ;; (javascript :variables javascript-backend 'lsp)
      (typescript :variables
                  typescript-fmt-on-save nil
                  typescript-fmt-tool 'typescript-formatter
-                typescript-backend 'lsp)
+		 ;; typescript-backend 'lsp
+		 )
      emacs-lisp
      (clojure :variables clojure-enable-fancify-symbols t)
      racket
      (c-c++ :variables
-            c-c++-default-mode-for-headers 'c++-mode
-            c-c++-backend 'lsp-ccls
-            c-c++-lsp-executable (file-truename "/usr/local/bin/ccls"))
+            c-c++-default-mode-for-headers 'c++-mode)
+            ;; c-c++-default-mode-for-headers 'c++-mode
+            ;; c-c++-backend 'lsp-ccls
+            ;; c-c++-lsp-executable (file-truename "/usr/local/bin/ccls"))
      zilongshanren
-     (chinese :variables chinese-default-input-method 'pinyin
-              chinese-enable-youdao-dict t)
+     (chinese :packages youdao-dictionary fcitx
+              :variables chinese-enable-fcitx nil
+              chinese-enable-youdao-dict t)     
+     ;; (chinese :variables chinese-default-input-method 'pinyin
+             ;; chinese-enable-youdao-dict t)
+     (go :variables
+         go-use-gometalinter t
+         gofmt-command "goimports"
+         go-tab-width 4)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -110,8 +124,10 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(sicp ssh-agency anki-editor)
-
+   dotspacemacs-additional-packages '(sicp ssh-agency anki-editor
+                                      company-tern
+                                      prettier-js
+                                      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages
@@ -130,6 +146,8 @@ This function should only modify configuration layer settings."
                     helm-c-yasnippet ace-jump-helm-line helm-make magithub
                     helm-themes helm-swoop helm-spacemacs-help smeargle
                     ido-vertical-mode flx-ido company-quickhelp ivy-rich helm-purpose
+                    ;; window-purpose ivy-purpose helm-purpose spacemacs-purpose-popwin
+		    ;;         clojure-cheatsheet
                     )
    dotspacemacs-install-packages 'used-only
    dotspacemacs-delete-orphan-packages t))
@@ -171,8 +189,8 @@ It should only modify the values of Spacemacs settings."
 
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
-   dotspacemacs-elpa-timeout 5
-
+   dotspacemacs-elpa-timeout 300 
+   
    ;; Set `gc-cons-threshold' and `gc-cons-percentage' when startup finishes.
    ;; This is an advanced option and should not be changed unless you suspect
    ;; performance issues due to garbage collection operations.
@@ -216,8 +234,8 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
-
+   dotspacemacs-startup-banner '"~/Pictures/tom/google-logo.png"
+   ;; dotspacemacs-startup-banner 'official
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -240,7 +258,8 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-light
+   dotspacemacs-themes '(monokai
+                         solarized-light
                          solarized-dark)
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -258,8 +277,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-default-font '("Source Code Pro"
                                :size 14
                                :weight normal
-                               :width normal)
-
+                               :width normal
+                               :powerline-scale 1.1)
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
 
@@ -289,7 +308,17 @@ It should only modify the values of Spacemacs settings."
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
    dotspacemacs-distinguish-gui-tab nil
-
+   ;; If non nil `Y' is remapped to `y$' in Evil states. (default nil)
+   dotspacemacs-remap-Y-to-y$ t
+   ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
+   ;; there. (default t)
+   dotspacemacs-retain-visual-state-on-shift t
+   ;; If non-nil, J and K move lines up and down when in visual mode.
+   ;; (default nil)
+   dotspacemacs-visual-line-move-text t
+   ;; If non nil, inverse the meaning of `g' in `:substitute' Evil ex-command.
+   ;; (default nil)
+   dotspacemacs-ex-substitute-global nil
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
 
@@ -319,6 +348,19 @@ It should only modify the values of Spacemacs settings."
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
 
+   ;; If non nil, `helm' will try to minimize the space it uses. (default nil)
+   dotspacemacs-helm-resize nil
+   ;; if non nil, the helm header is hidden when there is only one source.
+   ;; (default nil)
+   dotspacemacs-helm-no-header nil
+   ;; define the position to display `helm', options are `bottom', `top',
+   ;; `left', or `right'. (default 'bottom)
+   dotspacemacs-helm-position 'bottom
+   ;; Controls fuzzy matching in helm. If set to `always', force fuzzy matching
+   ;; in all non-asynchronous sources. If set to `source', preserve individual
+   ;; source settings. Else, disable fuzzy matching in all sources.
+   ;; (default 'always)
+   dotspacemacs-helm-use-fuzzy 'always
    ;; If non-nil, the paste transient-state is enabled. While enabled, after you
    ;; paste something, pressing `C-j' and `C-k' several times cycles through the
    ;; elements in the `kill-ring'. (default nil)
@@ -384,7 +426,10 @@ It should only modify the values of Spacemacs settings."
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
    dotspacemacs-smooth-scrolling t
-
+   
+   ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
+   ;; derivatives. If set to `relative', also turns on relative line numbers.
+   
    ;; Control line numbers activation.
    ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
    ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
@@ -460,14 +505,21 @@ It should only modify the values of Spacemacs settings."
    ;; Format specification for setting the icon title format
    ;; (default nil - same as frame-title-format)
    dotspacemacs-icon-title-format nil
-
+   
+   ;; Not used for now. (default nil)
+   dotspacemacs-default-package-repository nil
+   
    ;; Delete whitespace while saving buffer. Possible values are `all'
    ;; to aggressively delete empty line and long sequences of whitespace,
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   ;; dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'changed
 
+  ;; dotspacemacs-frame-title-format "%t"
+   dotspacemacs-icon-title-format nil
+   
    ;; Either nil or a number of seconds. If non-nil zone out after the specified
    ;; number of seconds. (default nil)
    dotspacemacs-zone-out-when-idle nil
@@ -493,10 +545,10 @@ dump."
   )
 
 (defun dotspacemacs/user-init ()
-  ;; (setq-default configuration-layer-elpa-archives
-  ;;               '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
-  ;;                 ("org-cn"   . "http://elpa.emacs-china.org/org/")
-  ;;                 ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
+   (setq-default configuration-layer-elpa-archives
+                 '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+                   ("org-cn"   . "http://elpa.emacs-china.org/org/")
+                  ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 
   
   (setq term-char-mode-point-at-process-mark nil)
@@ -516,10 +568,85 @@ dump."
   (setq-default quelpa-build-tar-executable "/usr/local/bin/gtar")
   ;; hack for remove purpose mode
   ;; (setq purpose-mode nil)
+  ;; (setq js2-include-node-externs t)
+
+  ;; Turn off js2 mode errors & warnings (we lean on eslint/standard)
+  ;; (setq js2-mode-show-parse-errors nil)
+  ;; (setq js2-mode-show-strict-warnings nil)
   )
 
 (defun dotspacemacs/user-config ()
-   
+
+
+  ;; https://blog.csdn.net/u010654583/article/details/73920206
+  ;; I. 显示时间
+  ;; .emacs加上：
+  (display-time-mode 1)              ;; 常显
+  (setq display-time-24hr-format t)  ;;格式
+  (setq display-time-day-and-date t) ;;显示时间、星期、日期
+
+  ;; II. 隐藏菜单栏工具栏滚动条
+  ;; .emacs加上：
+  (tool-bar-mode 0)
+  (menu-bar-mode 0)
+  (scroll-bar-mode 0)
+  ;;注: 新版改成使用0，旧版使用nil的做法已失效，但 (set-scroll-bar-mode nil) 仍可使用
+
+  ;; III. 关闭启动画面
+  ;; .emacs加上：
+  (setq inhibit-startup-message t)
+
+  ;; IV. highlight当前行
+  ;; .emacs加上：
+  (global-hl-line-mode 1)
+
+  (defconst macp (eq system-type 'darwin))
+  (message "system type is mac : %s" macp)
+
+  ;; ;; emacspeak mac
+  ;; (require 'cl)
+  ;; (setq load-path (cons "~/emacs/emacspeak/lisp" load-path))
+  ;; (setq emacspeak-directory "~/emacs/emacspeak")
+  ;; (setq dtk-program "mac")
+  ;; (require 'emacspeak-setup)
+  ;; (require 'mac-voices)
+  ;; (emacspeak-tts-startup-hook)
+  ;; (dtk-set-rate 300 t)
+
+  ;; ;; emacspeak outloud
+  ;; (setenv "DTK_PROGRAM" "outloud")
+  ;; (load-file "/mnt/c/Users/a/emacs/emacspeak-src/emacspeak_voxin_install-49.0-6/build/emacspeak-49.0/lisp/emacspeak-setup.el")
+  
+  ;; ;; emacspeak espeak
+  ;; (setenv "DTK_PROGRAM" "espeak")
+
+  (kill-buffer "*spacemacs*")
+
+  ;; (global-flycheck-mode t)
+  (add-hook 'js2-mode-hook 'flycheck-mode)
+
+  ;; prettier
+  (eval-after-load 'web-mode
+    '(progn
+       (add-hook 'web-mode-hook #'add-node-modules-path)))
+
+  (require 'prettier-js)
+  (setq prettier-js-command "prettier-eslint_d")
+
+  ;; (require 'company-tern)
+  ;; (require 'company-mode)
+  ;; (add-to-list 'company-backends 'company-tern)
+
+  (require 'auto-complete)
+  (global-auto-complete-mode t)
+  ;; (add-to-list 'ac-modes (js2-mode company-mode tern-mode))
+  (add-to-list 'load-path "~/emacs/tern/emacs/")
+  (autoload 'tern-mode "tern.el" nil t)
+  (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+  (eval-after-load 'tern
+    '(progn
+       (require 'tern-auto-complete)
+       (tern-ac-setup)))
   ;;解决org表格里面中英文对齐的问题
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mac) window-system)
