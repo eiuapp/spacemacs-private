@@ -231,7 +231,8 @@ comment box."
 
 (defun my-setup-develop-environment ()
   (interactive)
-  (when (my-project-name-contains-substring "guanghui")
+  (when (my-project-name-contains-substring "tomtsang")
+    ;; tomtsang 为 $HOME的名称
     (cond
      ((my-project-name-contains-substring "cocos2d-x")
       ;; C++ project don't need html tags

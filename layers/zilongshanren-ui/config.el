@@ -21,9 +21,12 @@
 ;; more useful frame title, that show either a file or a
 ;; buffer name (if the buffer isn't visiting a file)
 (setq frame-title-format
-      '("" " Guanghui - "
-        (:eval (if (buffer-file-name)
-                   (abbreviate-file-name (buffer-file-name)) "%b"))))
+            '("" " zyl - "
+              (:eval (if (buffer-file-name)
+                         (abbreviate-file-name (buffer-file-name)) "%b"))))
+
+;; change the title bar's icon
+(set-frame-parameter (car (frame-list)) 'icon-type  "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/images/ecoicon05_122077.png")
 
 (define-fringe-bitmap 'right-curly-arrow
   [#b00000000

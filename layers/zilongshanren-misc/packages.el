@@ -115,7 +115,8 @@
   (use-package highlight-global
     :init
     (progn
-
+      (spacemacs/set-leader-keys "hh" 'highlight-frame-toggle)
+      (spacemacs/set-leader-keys "hc" 'clear-highlight-frame)
       (setq-default highlight-faces
         '(('hi-red-b . 0)
           ('hi-yellow . 0)
@@ -625,7 +626,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
   (use-package helm-github-stars
     :commands (helm-github-stars)
     :init
-    (setq helm-github-stars-username "zilongshanren")))
+    (setq helm-github-stars-username "secretrobots")))
 
 
 

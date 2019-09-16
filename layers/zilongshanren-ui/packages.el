@@ -77,6 +77,10 @@
                 (list
                  " %1"
                  '(:eval (zilongshanren/modeline-winum-mode))
+                 ;; '(:eval (when (bound-and-true-p winum-mode) (propertize
+                 ;;                                              (window-number-mode-line)
+                 ;;                                              'face
+                 ;;                                              'font-lock-type-face)))
                  " "
                  '(:eval (zilong/modeline--evil-substitute))
                  '(:eval (zilongshanren/update-persp-name))

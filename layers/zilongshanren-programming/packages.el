@@ -21,6 +21,7 @@
         cmake-font-lock
         cmake-mode
         flycheck
+        nodejs-repl
         (nodejs-repl-eval :location local)
         (compile-dwim :location local)
         js2-mode
@@ -38,6 +39,7 @@
         (emacs-lisp :location built-in)
         ;; clojure-mode
         company
+        company-tern
         (eldoc :location built-in)
         dumb-jump
         graphviz-dot-mode
@@ -48,6 +50,26 @@
         lsp-mode
         typescript-mode
         ))
+
+(defun zilongshanren-programming/init-company-tern ()
+  (use-package company-tern
+    :ensure t
+    :init
+    :config
+    (with-eval-after-load 'company 'tern
+                          '(add-to-list 'company-backends 'company-tern)
+                          '(add-to-list 'auto-mode-alist '("\\.js" . js2-mode)))
+    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+    (add-to-list 'auto-mode-alist `(,(rx ".js" string-end) . js2-mode))
+    (add-hook 'js-mode-hook (lambda ()
+                              (tern-mode)
+                              (company-mode)))
+    (add-hook 'js2-mode-hook (lambda ()
+                               (tern-mode)
+                               (company-mode))))
+  ;; (use-package company-tern
+    ;; (add-to-list 'company-backends 'company-tern)
+    )
 
 (defun zilongshanren-programming/post-init-typescript-mode ()
   (add-hook 'typescript-mode-hook 'my-ts-mode-hook))
@@ -240,7 +262,19 @@
 ;;       (setq inferior-js-program-command "node"))))
 
 (defun zilongshanren-programming/post-init-web-mode ()
+  (setq-default
+   ;; js2-mode
+   js2-basic-offset 2
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
   (with-eval-after-load "web-mode"
+    (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
     (web-mode-toggle-current-element-highlight)
     (web-mode-dom-errors-show))
   (setq company-backends-web-mode '((company-dabbrev-code
@@ -289,6 +323,10 @@
     "ti" 'my-toggle-web-indent))
 
 
+(defun zilongshanren-programming/init-nodejs-repl ()
+  (use-package nodejs-repl
+    :init
+    :defer t))
 
 (defun zilongshanren-programming/init-flycheck-package ()
   (use-package flycheck-package))
@@ -386,19 +424,31 @@
 
 (defun zilongshanren-programming/post-init-js2-mode ()
   (progn
+    (add-to-list 'company-backends 'company-tern)
     (add-hook 'js2-mode-hook 'my-setup-develop-environment)
     (add-hook 'web-mode-hook 'my-setup-develop-environment)
+    ;; (syntax-checking-enable-by-default t)
 
     (spacemacs|define-jump-handlers js2-mode)
     (add-hook 'spacemacs-jump-handlers-js2-mode 'etags-select-find-tag-at-point)
 
-    (setq company-backends-js2-mode '((company-dabbrev-code :with company-keywords company-etags)
+    ;; (add-to-list 'company-backends 'company-tern)
+    (setq company-backends-js2-mode '(company-tern
+                                      (company-dabbrev-code :with company-keywords company-etags)
                                       company-files company-dabbrev))
 
     (setq company-backends-js-mode '((company-dabbrev-code :with company-keywords company-etags)
                                      company-files company-dabbrev))
 
-    (add-hook 'js2-mode-hook 'my-js2-mode-hook)
+    ;; (setq tern-command '("node" "~/.nvm/versions/node/v11.14.0/bin/tern"))
+    ;; (add-hook 'js2-mode-hook 'my-js2-mode-hook)
+    ;; (add-to-list 'load-path "~/emacs/tern/emacs/")
+    (add-hook 'js2-mode-hook (lambda ()
+                               (tern-mode t)
+                               (my-js2-mode-hook)
+                               (company-mode t)
+                               (setq company-tooltip-align-annotations t)
+                               (add-to-list 'company-backends 'company-tern)))
 
     ;; add your own keywords highlight here
     (font-lock-add-keywords 'js2-mode
@@ -428,6 +478,8 @@
         (setq-default js2-basic-offset 4)
         (setq-default js-switch-indent-offset 4)
         ;; Let flycheck handle parse errors
+        ;; (add-to-list 'flycheck-checkers 'javascript-standard)
+        (setq-default flycheck-disabled-checkers '(javascript-eslint javascript-jshint))
         (setq-default js2-mode-show-parse-errors nil)
         (setq-default js2-mode-show-strict-warnings nil)
         (setq-default js2-highlight-external-variables t)
