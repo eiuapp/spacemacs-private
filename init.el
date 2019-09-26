@@ -577,6 +577,14 @@ dump."
 
 (defun dotspacemacs/user-config ()
 
+  ;; start 配置一下 Emacs Application Framework 
+  ;; https://github.com/manateelazycat/emacs-application-framework
+  ;; https://github.com/Linusp/emacs_config/commit/9b99efa16e8d89ae4fc9563d12a76c7c90613699
+  ;; ATTENTION: mac, wsl, can not worked
+  ;;  (add-to-list 'load-path "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/emacs-application-framework/")
+  ;;  (require 'eaf)
+  ;; end 配置一下 Emacs Application Framework
+
   ;; https://github.com/pierre-lecocq/emacs4developers/blob/master/chapters/03-building-your-own-editor.org
   ;; define your name and mail address
   (setq user-full-name "yunlong zeng")
@@ -603,7 +611,7 @@ dump."
   (set-default-coding-systems 'utf-8)
   (set-selection-coding-system 'utf-8)
   (prefer-coding-system 'utf-8)
-
+  
   ;; https://blog.csdn.net/u010654583/article/details/73920206
   ;; I. 显示时间
   ;; .emacs加上：
