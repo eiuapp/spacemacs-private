@@ -577,6 +577,32 @@ dump."
 
 (defun dotspacemacs/user-config ()
 
+  ;; https://github.com/pierre-lecocq/emacs4developers/blob/master/chapters/03-building-your-own-editor.org
+  ;; define your name and mail address
+  (setq user-full-name "yunlong zeng")
+  (setq user-mail-address "273412935@qq.com")
+  ;; Highlight tabulations
+  (setq-default highlight-tabs t)
+
+  ;; Show trailing white spaces
+  (setq-default show-trailing-whitespace t)
+
+  ;; Remove useless whitespace before saving a file
+  (add-hook 'before-save-hook 'whitespace-cleanup)
+  (add-hook 'before-save-hook (lambda() (delete-trailing-whitespace)))
+
+  ;; Remove all backup files
+  (setq make-backup-files nil)
+  (setq backup-inhibited t)
+  (setq auto-save-default nil)
+
+  ;; Set locale to UTF8
+  (set-language-environment 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (setq locale-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
 
   ;; https://blog.csdn.net/u010654583/article/details/73920206
   ;; I. 显示时间
