@@ -34,6 +34,7 @@
     bug-hunter
     proxy-mode
     w3m
+    ;; buffer-move
     ;; (sdcv-mode :location (recipe
     ;;                       :fetcher github
     ;;                       :repo "gucong/emacs-sdcv"))
@@ -50,6 +51,20 @@
     ;; org-download
     ;; plain-org-wiki
     ))
+
+;; buffer-move start
+(defun zilongshanren-tomtsang/init-buffer-move ()
+  (use-package buffer-move
+    :init
+    :ensure t
+    ;; https://github.com/pierre-lecocq/emacs.d/commit/cae62960b9a6097265e03d126a40989cf9478182#diff-1630cd06b4d0ad8ea0ff9ffd0aba5242
+    ;; :bind ((global-set-key (kbd "<C-S-up>")     'buf-move-up)
+    ;;        (global-set-key (kbd "<C-S-down>")   'buf-move-down)
+    ;;        (global-set-key (kbd "<C-S-left>")   'buf-move-left)
+    ;;        (global-set-key (kbd "<C-S-right>")  'buf-move-right))
+    )
+  )
+;; buffer-move end
 
 ;; w3m start
 (defun zilongshanren-tomtsang/init-w3m ()
