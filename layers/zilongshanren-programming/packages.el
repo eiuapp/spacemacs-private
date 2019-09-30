@@ -78,7 +78,7 @@
   (progn
 
     (setq lsp-ui-doc-enable nil)
-    
+
     (defun lsp--auto-configure ()
       "Autoconfigure `lsp-ui', `company-lsp' if they are installed."
 
@@ -104,26 +104,26 @@
 
           (when (functionp 'yas-minor-mode)
             (yas-minor-mode t)))))
-    
+
     (add-hook 'lsp-after-open-hook 'zilongshanren-refresh-imenu-index)
 
     (defun hidden-lsp-ui-sideline ()
       (interactive)
       (if (< (window-width) 180)
           (progn
-            
+
             (setq lsp-ui-sideline-show-code-actions nil)
             (setq lsp-ui-sideline-show-diagnostics nil)
             (setq lsp-ui-sideline-show-hover nil)
             (setq lsp-ui-sideline-show-symbol nil))
         (progn
-            
+
           (setq lsp-ui-sideline-show-code-actions nil)
           ;; (setq lsp-ui-sideline-show-diagnostics t)
           (setq lsp-ui-sideline-show-hover t)
           ;; (setq lsp-ui-sideline-show-symbol t)
           )))
-    
+
     (advice-add 'lsp-ui-sideline--run :after 'hidden-lsp-ui-sideline)
 
     (setq lsp-auto-configure t)
@@ -287,7 +287,7 @@
 (defun zilongshanren-programming/post-init-yasnippet ()
   (progn
     (set-face-background 'secondary-selection "gray")
-    
+
     (with-eval-after-load 'yasnippet
       (progn
         (define-key yas-keymap [(tab)]       (yas-filtered-definition 'yas-next-field))
@@ -394,7 +394,7 @@
 
 (defun zilongshanren-programming/post-init-js2-refactor ()
   (progn
-    
+
 (defun js2r-toggle-object-property-access-style ()
   "Toggle js object property access style."
   (interactive)
@@ -479,7 +479,7 @@
         (setq-default js-switch-indent-offset 4)
         ;; Let flycheck handle parse errors
         ;; (add-to-list 'flycheck-checkers 'javascript-standard)
-        (setq-default flycheck-disabled-checkers '(javascript-eslint javascript-jshint))
+        ;; (setq-default flycheck-disabled-checkers '(javascript-eslint javascript-jshint))
         (setq-default js2-mode-show-parse-errors nil)
         (setq-default js2-mode-show-strict-warnings nil)
         (setq-default js2-highlight-external-variables t)
@@ -681,7 +681,7 @@
     ;; enable dabbrev-expand in company completion https://emacs-china.org/t/topic/6381
     (setq company-dabbrev-char-regexp "[\\.0-9a-z-_'/]")
 
-    
+
     (setq company-minimum-prefix-length 1
           company-idle-delay 0.08)
 
