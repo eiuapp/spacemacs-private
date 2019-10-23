@@ -53,6 +53,7 @@
     ;; plain-org-wiki
     jump-char
     iy-go-to-char
+    js-auto-format-mode
     ))
 
 ;; start jump-char
@@ -70,6 +71,16 @@
     :ensure t)
   )
 ;; end iy-go-to-char
+
+;; start js-auto-format-mode
+(defun zilongshanren-tomtsang/init-js-auto-format-mode ()
+  (use-package js-auto-format-mode
+    :init
+    :ensure t
+    :config
+    (add-hook 'js2-mode-hook #'js-auto-format-mode))
+  )
+;; end js-auto-format-mode
 
 ;; start company-tabnine
 (defun my-program/init-company-tabnine ()
