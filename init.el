@@ -91,7 +91,7 @@ This function should only modify configuration layer settings."
      html
      (javascript :variables
                  node-add-modules-path t
-                 javascript-backend 'nil)     
+                 javascript-backend 'nil)
      ;; (javascript :variables javascript-backend 'lsp)
      (typescript :variables
                  typescript-fmt-on-save nil
@@ -109,7 +109,7 @@ This function should only modify configuration layer settings."
      zilongshanren
      (chinese :packages youdao-dictionary fcitx
               :variables chinese-enable-fcitx nil
-              chinese-enable-youdao-dict t)     
+              chinese-enable-youdao-dict t)
      ;; (chinese :variables chinese-default-input-method 'pinyin
              ;; chinese-enable-youdao-dict t)
      (go :variables
@@ -127,6 +127,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(sicp ssh-agency anki-editor
                                       company-tern
                                       prettier-js
+                                      add-node-modules-path
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -189,8 +190,8 @@ It should only modify the values of Spacemacs settings."
 
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
-   dotspacemacs-elpa-timeout 300 
-   
+   dotspacemacs-elpa-timeout 300
+
    ;; Set `gc-cons-threshold' and `gc-cons-percentage' when startup finishes.
    ;; This is an advanced option and should not be changed unless you suspect
    ;; performance issues due to garbage collection operations.
@@ -426,10 +427,10 @@ It should only modify the values of Spacemacs settings."
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
    dotspacemacs-smooth-scrolling t
-   
+
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
-   
+
    ;; Control line numbers activation.
    ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
    ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
@@ -505,10 +506,10 @@ It should only modify the values of Spacemacs settings."
    ;; Format specification for setting the icon title format
    ;; (default nil - same as frame-title-format)
    dotspacemacs-icon-title-format nil
-   
+
    ;; Not used for now. (default nil)
    dotspacemacs-default-package-repository nil
-   
+
    ;; Delete whitespace while saving buffer. Possible values are `all'
    ;; to aggressively delete empty line and long sequences of whitespace,
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
@@ -519,7 +520,7 @@ It should only modify the values of Spacemacs settings."
 
   ;; dotspacemacs-frame-title-format "%t"
    dotspacemacs-icon-title-format nil
-   
+
    ;; Either nil or a number of seconds. If non-nil zone out after the specified
    ;; number of seconds. (default nil)
    dotspacemacs-zone-out-when-idle nil
@@ -550,7 +551,7 @@ dump."
                    ("org-cn"   . "http://elpa.emacs-china.org/org/")
                   ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 
-  
+
   (setq term-char-mode-point-at-process-mark nil)
 
   ;; https://github.com/syl20bnr/spacemacs/issues/2705
@@ -648,7 +649,7 @@ dump."
   (set-default-coding-systems 'utf-8)
   (set-selection-coding-system 'utf-8)
   (prefer-coding-system 'utf-8)
-  
+
   ;; https://blog.csdn.net/u010654583/article/details/73920206
   ;; I. 显示时间
   ;; .emacs加上：
@@ -687,14 +688,25 @@ dump."
   ;; ;; emacspeak outloud
   ;; (setenv "DTK_PROGRAM" "outloud")
   ;; (load-file "/mnt/c/Users/a/emacs/emacspeak-src/emacspeak_voxin_install-49.0-6/build/emacspeak-49.0/lisp/emacspeak-setup.el")
-  
+
   ;; ;; emacspeak espeak
   ;; (setenv "DTK_PROGRAM" "espeak")
 
   (kill-buffer "*spacemacs*")
 
   ;; (global-flycheck-mode t)
-  (add-hook 'js2-mode-hook 'flycheck-mode)
+  ;; stop default linter - use ESLint linter as part of FlyCheck
+  ;;  (setq js2-mode-show-parse-errors nil js2-mode-show-strict-warnings nil)
+  ;;  (eval-after-load 'js2-mode
+  ;;    '(progn
+  ;;      (add-hook 'js2-mode-hook 'flycheck-mode) ;;  'eslintd-fix-mode #'add-node-modules-path
+  ;;      (add-hook 'js2-mode-hook 'eslintd-fix-mode)
+  ;;      (add-hook 'js2-mode-hook #'add-node-modules-path)))
+
+  ;; stop default linter - use ESLint linter as part of FlyCheck
+  ;; (setq js2-mode-show-parse-errors nil js2-mode-show-strict-warnings nil)
+  (eval-after-load 'js2-mode
+    '(add-hook 'js2-mode-hook #'add-node-modules-path))
 
   ;; prettier
   (eval-after-load 'web-mode
