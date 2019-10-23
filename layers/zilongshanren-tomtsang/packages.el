@@ -35,6 +35,7 @@
     proxy-mode
     ;; w3m
     company-tabnine
+    ;; eslintd-fix
     ;; buffer-move
     ;; (sdcv-mode :location (recipe
     ;;                       :fetcher github
@@ -81,6 +82,33 @@
     (add-hook 'js2-mode-hook #'js-auto-format-mode))
   )
 ;; end js-auto-format-mode
+
+
+;; start eslintd-fix
+;; (defun eslint-fix-file ()
+;;   (interactive)
+;;   (message "eslint --fixing the file" (buffer-file-name))
+;;   (shell-command (concat "eslint --fix " (buffer-file-name))))
+;;
+;; (defun eslint-fix-file-and-revert ()
+;;   (interactive)
+;;   (eslint-fix-file)
+;;   (revert-buffer t t))
+;;
+;; (add-hook 'js2-mode-hook
+;;           (lambda ()
+;;             (add-hook 'after-save-hook #'eslint-fix-file-and-revert)))
+;; ;; start eslintd-fix
+
+;; start eslintd-fix
+;; (defun zilongshanren-tomtsang/init-eslintd-fix ()
+;;   (use-package eslintd-fix
+;;     :ensure t
+;;     (setq flycheck-javascript-eslint-executable "eslint_d")
+;;     ;; (setq eslintd-fix-executable "~/.nvm/versions/node/v11.14.0/bin/eslint_d")
+;;     (add-hook 'js2-mode-hook 'eslintd-fix-mode)
+;;     ))
+;; end eslintd-fix
 
 ;; start company-tabnine
 (defun zilongshanren-tomtsang/init-company-tabnine ()
