@@ -857,6 +857,42 @@ unwanted space when exporting org-mode to hugo markdown."
     (transient-bind-q-to-quit))
 
   ;; fix for the lsp error
+  (defvar spacemacs-jump-handlers-fundamental-mode nil)
+
+  ;; ;; start 配置一下 eslint-auto.el
+  ;; ;; https://gist.github.com/ustun/73321bfcb01a8657e5b8
+  ;; (defun eslint-fix-file ()
+  ;;   (interactive)
+  ;;   (message "eslint --fixing the file" (buffer-file-name))
+  ;;   (shell-command-to-string (concat "eslint --fix " (buffer-file-name))))
+
+  ;; (defun eslint-fix-file-and-revert ()
+  ;;   (interactive)
+  ;;   (eslint-fix-file)
+  ;;   (revert-buffer t t))
+
+  ;; (add-hook 'js2-mode-hook
+  ;;   (lambda ()
+  ;;     (add-hook 'after-save-hook #'eslint-fix-file-and-revert)))
+  ;; ;; end 配置一下 eslint-auto.el
+
+  ;; (require 'flycheck)
+  ;; (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
+  ;; (eval-after-load 'vue-mode
+  ;;   '(add-hook 'vue-mode-hook #'add-node-modules-path))
+  ;; (flycheck-add-mode 'javascript-eslint 'vue-mode)
+  ;; (flycheck-add-mode 'javascript-eslint 'vue-html-mode)
+  ;; (flycheck-add-mode 'javascript-eslint 'css-mode)
+  ;; (add-hook 'vue-mode-hook 'flycheck-mode)
+
+  ;;  (eval-after-load 'js2-mode
+  ;;    '(add-hook 'js2-mode-hook #'add-node-modules-path))
+  ;;  (eval-after-load 'js2-jsx-mode
+  ;;    '(add-hook 'js2-jsx-mode-hook #'add-node-modules-path))
+  ;;  (eval-after-load 'web-mode
+  ;;    '(add-hook 'web-mode-hook #'add-node-modules-path))
+
+  ;;  (setq flycheck-eslintrc "~/.eslintrc")
 
   ;; start clipboard
   ;; (setq x-select-enable-clipboard t)
@@ -913,6 +949,8 @@ unwanted space when exporting org-mode to hugo markdown."
   ;;  (skip-chars-forward "HTTP/")        ; Skip HTTP Version
   ;;  (skip-chars-forward "http/")        ; Skip HTTP Version
   ;; end Skip HTTP Version
+  )
+
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file 'no-error 'no-message)
 (defun dotspacemacs/emacs-custom-settings ()
