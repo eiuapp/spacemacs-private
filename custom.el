@@ -16,7 +16,7 @@
  '(erc-port 6666)
  '(evil-want-C-i-jump t)
  '(evil-want-Y-yank-to-eol t)
- '(eww-search-prefix "https://cn.bing.com/search?q=")
+ '(eww-search-prefix "https://www.google.com/search?q=")
  '(expand-region-contract-fast-key "V")
  '(expand-region-exclude-text-mode-expansions '(html-mode nxml-mode web-mode))
  '(expand-region-reset-fast-key "r")
