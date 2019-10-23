@@ -904,10 +904,15 @@ unwanted space when exporting org-mode to hugo markdown."
   ;; (zilongshanren/load-my-layout)
   ;; (add-hook 'emacs-startup-hook zilongshanren/load-my-layout)
   ;; end my layout
+
   ;; start open shell when startup
   ;; (shell)
   ;; end open shell when startup
   
+  ;; start Skip HTTP Version
+  ;;  (skip-chars-forward "HTTP/")        ; Skip HTTP Version
+  ;;  (skip-chars-forward "http/")        ; Skip HTTP Version
+  ;; end Skip HTTP Version
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file 'no-error 'no-message)
 (defun dotspacemacs/emacs-custom-settings ()
