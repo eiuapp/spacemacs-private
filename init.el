@@ -558,11 +558,18 @@ dump."
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 
+  ;; start ss prxoy
   ;; ss proxy. But it will cause anacond-mode failed.
-  (setq socks-server '("Default server" "127.0.0.1" 1080 5))
+  ;; (setq socks-server '("Default server" "127.0.0.1" 1080 5))
   (setq evil-shift-round nil)
   (setq byte-compile-warnings '(not obsolete))
   (setq warning-minimum-level :error)
+  ;; (setq url-proxy-services
+  ;;     '(("http"     . "http://127.0.0.1:8118")
+  ;;       ("https"    . "http://127.0.0.1:8118")
+	;;     ("ftp"      . "127.0.0.1:8118")
+	;;     ("no_proxy" . "^.*github.com")))
+  ;; end ss proxy
 
   ;; https://github.com/syl20bnr/spacemacs/issues/8901
   (setq-default quelpa-build-tar-executable "/usr/local/bin/gtar")
