@@ -900,6 +900,10 @@ unwanted space when exporting org-mode to hugo markdown."
 
   ;; end clipboard
 
+  ;; start my layout
+  ;; (zilongshanren/load-my-layout)
+  ;; (add-hook 'emacs-startup-hook zilongshanren/load-my-layout)
+  ;; end my layout
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file 'no-error 'no-message)
 (defun dotspacemacs/emacs-custom-settings ()
