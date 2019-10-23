@@ -83,8 +83,9 @@
 ;; end js-auto-format-mode
 
 ;; start company-tabnine
-(defun my-program/init-company-tabnine ()
+(defun zilongshanren-tomtsang/init-company-tabnine ()
   (use-package company-tabnine
+    :init
     :ensure t
     :config
     (add-to-list 'company-backends #'company-tabnine)
