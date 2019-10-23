@@ -391,15 +391,46 @@
   (use-package py-autopep8
     :init))
 
+;; start flycheck
+;; use local eslint from node_modules before global
+;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+;; (defun zilongshanren-tomtsang/use-eslint-from-node-modules ()
+;;   (let* ((root (locate-dominating-file
+;;                 (or (buffer-file-name) default-directory)
+;;                 "node_modules"))
+;;          (eslint (and root
+;;                       (expand-file-name "node_modules/eslint/bin/eslint.js"
+;;                                         root))))
+;;     (when (and eslint (file-executable-p eslint))
+;;       (setq-local flycheck-javascript-eslint-executable eslint))))
+
 (defun zilongshanren-tomtsang/init-flycheck ()
   (use-package flycheck
+    :init
+    :ensure t
+    :config
+;;    (add-hook 'flycheck-mode-hook #'zilongshanren-tomtsang/use-eslint-from-node-modules)
+    (setq-default flycheck-disabled-checkers
+      (append flycheck-disabled-checkers
+        '(javascript-jshint json-jsonlist)))
+    (add-hook 'flycheck-mode-hook 'add-node-modules-path)
+    ;; Enable eslint checker for web-mode
+    (flycheck-add-mode 'javascript-eslint 'web-mode)
+    (flycheck-add-mode 'javascript-eslint 'js2-mode)
+    ;; Enable flycheck globally
+    ;; (add-hook 'after-init-hook #'global-flycheck-mode)
     :init))
 
 
 (defun zilongshanren-tomtsang/post-init-flycheck-mode ()
   (global-flycheck-mode t)
   (add-hook 'js2-mode-hook 'flycheck-mode)
+;;  (add-to-list 'flycheck-checkers 'javascript-eslint)
+;;  (setq flycheck-javascript-eslint-executable "eslint_d")
+;;  (eval-after-load 'js2-mode
+;;    '(add-hook 'js2-mode-hook #'add-node-modules-path))
   )
+;; end flycheck
 
 (defun zilongshanren-tomtsang/init-elpy ()
   (use-package elpy
