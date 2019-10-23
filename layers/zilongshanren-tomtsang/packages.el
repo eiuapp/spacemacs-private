@@ -51,7 +51,25 @@
     ;; worf
     ;; org-download
     ;; plain-org-wiki
+    jump-char
+    iy-go-to-char
     ))
+
+;; start jump-char
+(defun zilongshanren-tomtsang/init-jump-char ()
+  (use-package jump-char
+    :init
+    :ensure t)
+  )
+;; end jump-char
+
+;; start iy-go-to-char
+(defun zilongshanren-tomtsang/init-iy-go-to-char ()
+  (use-package iy-go-to-char
+    :init
+    :ensure t)
+  )
+;; end iy-go-to-char
 
 ;; start company-tabnine
 (defun my-program/init-company-tabnine ()
