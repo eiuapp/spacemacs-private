@@ -32,7 +32,7 @@
     pyim
     sdcv
     bug-hunter
-    proxy-mode
+    ;; proxy-mode
     ;; w3m
     company-tabnine
     ;; eslintd-fix
