@@ -1,6 +1,6 @@
 ;;; funcs.el --- zilongshanren Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2016 zilongshanren 
+;; Copyright (c) 2015-2016 zilongshanren
 ;;
 ;; Author: zilongshanren <guanghui8827@gmail.com>
 ;; URL: https://github.com/zilongshanren/spacemacs-private
@@ -82,7 +82,8 @@ comment box."
   (unless yas-global-mode
     (progn
       (yas-global-mode 1)
-      (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
+      ;; (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
+      (setq my-snippet-dir (expand-file-name "~/emacs/snippets-private"))
       (setq yas-snippet-dirs '(my-snippet-dir))
       (yas-load-directory my-snippet-dir)
       (setq yas-wrap-around-region t)))
