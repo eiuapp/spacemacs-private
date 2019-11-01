@@ -55,7 +55,16 @@
     jump-char
     iy-go-to-char
     js-auto-format-mode
+    key-chord
     ))
+
+;; start key-chord
+(defun zilongshanren-tomtsang/init-key-chord ()
+  (use-package key-chord
+    :init
+    :ensure t)
+  )
+;; end key-chord
 
 ;; start jump-char
 (defun zilongshanren-tomtsang/init-jump-char ()
