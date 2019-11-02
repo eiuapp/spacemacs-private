@@ -26,13 +26,13 @@
         (call-process-region (point-min) (point-max) "xsel" nil nil nil "--clipboard" "--input"))))))
 
 ;; start lisha's ergoemacs: copy from http://ergoemacs.org/emacs/elisp.html
-(defun my-insert-p-tag ()
+(defun xah-insert-p-tag ()
   "Insert <p></p> at cursor point."
   (interactive)
   (insert "<p></p>")
   (backward-char 4))
 
-(defun my-wrap-markup-region ()
+(defun xah-wrap-markup-region ()
   "Insert a markup <b></b> around a region."
   (interactive)
   (save-excursion
@@ -43,7 +43,7 @@
 
 ;; turn on highlight selection
 ;; (transient-mark-mode 1)
-(defun my-select-current-word ()
+(defun xah-select-current-word ()
   "Select the word under cursor.
 “word” here is considered any alphanumeric sequence with “_” or “-”."
   (interactive)
@@ -57,7 +57,7 @@
 ;; turn on highlight selection
 ;; (transient-mark-mode 1)
 
-(defun my-select-current-line ()
+(defun xah-select-current-line ()
   "Select the current line"
   (interactive)
   (let ((pos (line-beginning-position)))
@@ -65,7 +65,7 @@
     (set-mark pos)))
 
 
-(defun my-replace-greek-region ()
+(defun xah-replace-greek-region ()
   "Replace “alpha” to “α” and other greek letters in current region."
   (interactive)
   (let (
@@ -83,7 +83,7 @@
       (while (search-forward " gamma" nil t)
         (replace-match " γ" nil t)))))
 
-(defun my-delete-enclosed-text ()
+(defun xah-delete-enclosed-text ()
   "Delete texts between any pair of delimiters."
   (interactive)
   (save-excursion
@@ -94,27 +94,27 @@
       (setq p2 (point))
       (delete-region p1 p2))))
 
-(defun my-remove-line-breaks ()
+(defun xah-remove-line-breaks ()
   "Remove line endings in current paragraph."
   (interactive)
   (let ((fill-column (point-max)))
     (fill-paragraph nil)))
 
 
-(defun my-insert-random-number ()
+(defun xah-insert-random-number ()
   "Insert a random number between 0 to 999999."
   (interactive)
   (random t) ; seed it randomly
   (insert (number-to-string (random 999999))) )
 
-(defun my-word-definition-lookup ()
+(defun xah-word-definition-lookup ()
   "Look up the word under cursor in a browser."
   (interactive)
   (browse-url
    (concat "http://www.answers.com/main/ntquery?s=" (thing-at-point 'symbol))))
 
 
-(defun my-to-unix-eol (fPath)
+(defun xah-to-unix-eol (fPath)
   "Change file's line ending to unix convention."
   (let ((myBuffer (find-file fPath)))
     (set-buffer-file-coding-system 'unix) ; or 'mac or 'dos
@@ -122,14 +122,14 @@
     (kill-buffer myBuffer)))
 
 
-(defun my-dired-2unix-marked-files ()
+(defun xah-dired-2unix-marked-files ()
   "Change to unix line ending for marked (or next arg) files."
   (interactive)
   (mapc 'to-unix-eol (dired-get-marked-files))
   )
 
 
-(defun my-delete-current-file ()
+(defun xah-delete-current-file ()
   "Delete the file associated with the current buffer.
 Delete the current buffer too.
 If no file is associated, just close buffer without prompt for save."
@@ -140,7 +140,7 @@ If no file is associated, just close buffer without prompt for save."
       (when currentFile
         (delete-file currentFile)))))
 
-(defun my-insert-column-counter (n)
+(defun xah-insert-column-counter (n)
   "Insert a sequence of numbers vertically.
 For example:
 
@@ -169,7 +169,7 @@ Version 2019-01-27"
       (forward-char colpos)
       (setq i (1+ i)))))
 
-(defun my-get-word ()
+(defun xah-get-word ()
   "print the word under cursor.
 Word here is any A to Z, a to z, and low line _"
   (interactive)
@@ -184,13 +184,13 @@ Word here is any A to Z, a to z, and low line _"
       (setq p2 (point))
       (message "%s" (buffer-substring-no-properties p1 p2)))))
 
-(defun my-print-current-word ()
+(defun xah-print-current-word ()
   "print current word."
   (interactive)
   (message "%s" (thing-at-point 'word)))
 
 
-(defun my-get-boundary-and-thing ()
+(defun xah-get-boundary-and-thing ()
   "example of using `bounds-of-thing-at-point'"
   (interactive)
   (let (bounds pos1 pos2 mything)
@@ -204,7 +204,7 @@ Word here is any A to Z, a to z, and low line _"
      pos1 pos2 mything)))
 
 
-(defun my-select-inside-quotes ()
+(defun xah-select-inside-quotes ()
   "Select text between double straight quotes on each side of cursor.
 
 the cursor is the beginning-of-quotes."
@@ -219,7 +219,7 @@ the cursor is the beginning-of-quotes."
     (push-mark p2)
     (setq mark-active t)))
 
-(defun my-select-text-in-quote ()
+(defun xah-select-text-in-quote ()
   "Select text between the nearest left and right quotes.
 
 the cursor is the end-of-quotes."
@@ -233,20 +233,20 @@ the cursor is the end-of-quotes."
     (setq mark-active t)))
 
 
-(defun my-save-to-test-txt ()
+(defun xah-save-to-test-txt ()
   "write whole buffer to a file. overwrites the file content."
   (interactive)
   (write-region (point-min) (point-max) "text.txt" ))
 
 
-(defun my-save-to-file-path (filePath)
+(defun xah-save-to-file-path (filePath)
   "write whole buffer to a file. overwrites the file content."
   (interactive "sEnter your file path: ")
   (write-region (point-min) (point-max) filePath)
   (message "Buffer had save to: %s" filePath))
 
 
-(defun my-make-backup ()
+(defun xah-make-backup ()
   "Make a backup copy of current buffer's file.
 Create a backup of current buffer's file.
 The new file name is the old file name with trailing “~”, in the same dir.
@@ -266,7 +266,7 @@ If the current buffer is not associated with a file, its a error."
         (copy-file fName backupName t)
         (message (concat "Backup saved as: " (file-name-nondirectory backupName)))))))
 
-(defun my-command ()
+(defun xah-command ()
   "One sentence summary of what this command do.
 
 More details here. Be sure to mention the return value if relevant.
@@ -280,14 +280,14 @@ and don't indent them."
     ))
 
 
-(defun my-region-beginning-to-end ()
+(defun xah-region-beginning-to-end ()
   "sample code to show region begin/end positions"
   (interactive)
   (message "begin at %s\nend at %s"
            (region-beginning)
            (region-end)))
 
-(defun my-is-region-active ()
+(defun xah-is-region-active ()
   "print whether region is active."
   (interactive)
   (if (use-region-p)
@@ -295,7 +295,7 @@ and don't indent them."
     (message "region not active")))
 
 
-(defun my-select-line ()
+(defun xah-select-line ()
   "Select current line."
   (interactive)
   (let (p1 p2)
@@ -306,7 +306,7 @@ and don't indent them."
     (setq mark-active t)))
 
 
-(defun my-select-line ()
+(defun xah-select-line ()
   "Select current line."
   (interactive)
   (let (p1 p2)
@@ -317,7 +317,7 @@ and don't indent them."
     (setq mark-active t)))
 
 
-(defun my-downcase-word-or-region ()
+(defun xah-downcase-word-or-region ()
   "Downcase current word or region."
   (interactive)
   (let (pos1 pos2 bds)
@@ -332,7 +332,7 @@ and don't indent them."
     (downcase-region pos1 pos2)
     ))
 
-(defun my-current-line ()
+(defun xah-current-line ()
   "Downcase current word or region."
   (interactive)
   (setq myLine
@@ -342,37 +342,37 @@ and don't indent them."
        ))
   (message "%s" myLine))
 
-(defun my-prompt-file-name ()
+(defun xah-prompt-file-name ()
   "Prompt user to enter a file name, with completion and history support."
   (interactive)
   (message "String is %s" (read-file-name "Enter file name:")))
 
-(defun my-prompt-directory ()
+(defun xah-prompt-directory ()
   "Prompt user to enter a dir path, with path completion and input history support."
   (interactive)
   (message "Path is %s" (read-directory-name "Directory:")))
 
 
-(defun my-prompt-string ()
+(defun xah-prompt-string ()
   "Prompt user to enter a string, with input history support."
   (interactive)
   (message "String is %s" (read-string "Enter your name:")))
 
-(defun my-prompt-regex-string ()
+(defun xah-prompt-regex-string ()
   "Prompt user to enter a elisp regex, with input history support."
   (interactive)
   (message "Regex is %s" (read-regexp "Type a regex:")))
 
 ;; (require 'ido)
 
-(defun my-pick-one ()
+(defun xah-pick-one ()
   "Prompt user to pick a choice from a list."
   (interactive)
   (let ((choices '("cat" "dog" "dragon" "tiger")))
     (message "%s" (ido-completing-read "Open bookmark:" choices ))))
 
 
-(defun my-pick-y-or-n-p ()
+(defun xah-pick-y-or-n-p ()
   "Prompt user to pick a choice from y-or-n."
   (interactive)
   (if (y-or-n-p "Do it?")
@@ -388,25 +388,25 @@ and don't indent them."
   )
 
 
-(defun my-ask-name (x)
+(defun xah-ask-name (x)
   "Ask name."
   (interactive "sEnter your name: ")
   (message "Name: %s" x))
 
 
-(defun my-ask-age (x)
+(defun xah-ask-age (x)
   "Ask age."
   (interactive "nEnter your age: ")
   (message "Age: %d" x))
 
 
-(defun my-print-region-boundary (x y)
+(defun xah-print-region-boundary (x y)
   "Prints region start and end positions"
   (interactive "r")
   (message "Region begin at: %d, end at: %d" x y))
 
 
-(defun my-interactive-list-no-input (x y)
+(defun xah-interactive-list-no-input (x y)
   "Ask name and age"
   (interactive
    ;; complex code here that returns a list
@@ -414,21 +414,21 @@ and don't indent them."
   (message "Name is: %s, Age is: %d" x y))
 
 
-(defun my-interactive-list-ask-name-and-age (x y)
+(defun xah-interactive-list-ask-name-and-age (x y)
   "Ask name and age"
   (interactive "sEnter you name:
 nEnter your age: ")
   (message "Name is: %s, Age is: %d" x y))
 
 
-(defun my-print-argument-received (x)
+(defun xah-print-argument-received (x)
   "print argument received"
   (interactive "P")
   (message "%s" x)
   ;; value of x is from universal argument, or nil if universal-argument isn't called
   )
 
-(defun my-current-prefix-arg ()
+(defun xah-current-prefix-arg ()
   "print `current-prefix-arg'
 
 ;; try
@@ -443,7 +443,7 @@ nEnter your age: ")
   (message "%s" current-prefix-arg))
 
 
-(defun my-utest (arg1 &optional arg2 arg3)
+(defun xah-utest (arg1 &optional arg2 arg3)
   "Sample command to test `universal-argument'."
   (interactive
    (cond
@@ -468,7 +468,7 @@ nEnter your age: ")
   ;;
   )
 
-(defun my-find-replace-all-current-buffer-type-a (x y)
+(defun xah-find-replace-all-current-buffer-type-a (x y)
   "idiom for string replacement in current buffer
 
 "
@@ -482,7 +482,7 @@ sEnter your replacement: ")
     ;; repeat for other string pairs
     ))
 
-(defun my-find-replace-regexp-all-current-buffer-type-a (x y)
+(defun xah-find-replace-regexp-all-current-buffer-type-a (x y)
   "idiom for string replacement in current buffer, if you need regexp
 
 "
@@ -497,6 +497,41 @@ sEnter your replacement: ")
     ))
 
 
+(defun xah-find-replace-case-all-current-buffer-type-a (x y)
+  "idiom for string replacement in current buffer
+
+"
+  (interactive "sEnter your find string:
+sEnter your replacement: ")
+  (let ((case-fold-search nil)) ; or nil
+    ;; (case-fold-search nil) ; case sensitive search
+    (goto-char (point-min))
+    (while (search-forward x nil t)
+      (replace-match y))
+    ;; repeat for other string pairs
+    ))
+
+
+(defun xah-find-replace-region (x y)
+;; idiom for string replacement within a region
+  (interactive "sEnter your find string:
+sEnter your replacement: ")
+(save-restriction
+  (narrow-to-region pos1 pos2)
+
+  (goto-char (point-min))
+  (while (search-forward x nil t)
+    (replace-match y))
+
+  ;; repeat for other string pairs
+  ))
+
+
+(defun xah-open-dired-marked ()
+  "Open marked files in dired."
+  (interactive)
+  (mapc 'find-file (dired-get-marked-files))
+  )
 
 
 
