@@ -533,8 +533,207 @@ sEnter your replacement: ")
   (mapc 'find-file (dired-get-marked-files))
   )
 
+(defun xah-get-string-from-file (filePath)
+  "Return filePath's file content."
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (buffer-string)))
 
 
+(defun xah-read-lines (filePath)
+  "Return a list of lines of a file at filePath."
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (split-string (buffer-string) "\n" t)))
+
+(defun xah-my-process-file (fPath)
+  "Process the file at path FPATH …
+
+but can not really write to file."
+
+  (let ((fileChanged-p nil))
+    (with-temp-buffer
+      (insert-file-contents fPath)
+
+      (message "hello world. %s" fPath)
+      ;; process text
+      ;; set fileChanged-p to t or nil
+      ;; (setq fileChanged-p t)
+      (write-region 1 (point-max) fPath))))
+
+(defun xah-walk-dir-to-find-out-txt-files (dirPath txt)
+  "walk dir to find out txt files."
+  (interactive "sEnter your dir path:
+sEnter your file extension(e.g: txt): ")
+  (message "the txt is : %s" txt)
+  (setq extention (concat "\\." txt "$"))
+  (message "the extention is : %s" extention)
+  (mapc
+   (lambda (x) (insert x "\n"))
+   (directory-files dirPath nil extention t)))
+
+
+(defun xah-walk-dir-recursively-to-find-out-txt-files (dirPath txt)
+  "walk dir recursively to find out txt files."
+  (interactive "sEnter your dir path:
+sEnter your file extension(e.g: txt): ")
+  (message "the txt is : %s" txt)
+  (setq extention (concat "\\." txt "$"))
+  (message "the extention is : %s" extention)
+  (mapc
+   (lambda (x) (insert x "\n"))
+   (directory-files-recursively dirPath extention)))
+
+
+(defun xah-get-fullpath (@file-relative-path)
+  "Return the full path of *file-relative-path, relative to caller's file location.
+
+Example: If you have this line
+ (xah-get-fullpath \"../xyz.el\")
+in the file at
+ /home/joe/emacs/emacs_lib.el
+then the return value is
+ /home/joe/xyz.el
+Regardless how or where emacs_lib.el is called.
+
+This function solves 2 problems.
+
+① If you have file A, that calls the `load' on a file at B, and B calls `load' on file C using a relative path, then Emacs will complain about unable to find C. Because, emacs does not switch current directory with `load'.
+
+To solve this problem, when your code only knows the relative path of another file C, you can use the variable `load-file-name' to get the current file's full path, then use that with the relative path to get a full path of the file you are interested.
+
+② To know the current file's full path, emacs has 2 ways: `load-file-name' and `buffer-file-name'. If the file is loaded by `load', then `load-file-name' works but `buffer-file-name' doesn't. If the file is called by `eval-buffer', then `load-file-name' is nil. You want to be able to get the current file's full path regardless the file is run by `load' or interactively by `eval-buffer'."
+
+  (concat (file-name-directory (or load-file-name buffer-file-name)) @file-relative-path)
+)
+
+
+(defun xah-test-exit-f-a ()
+  "example. using catch/throw to exit function"
+  (interactive)
+  (catch 'aaa
+    (if (y-or-n-p "exit?")
+        (progn
+          (message "existing")
+          (throw 'aaa 3) ; if yes, exit right away, return 3 to catch
+          )
+      (progn ; else, go on
+        (message "went on")
+        4 ; return 4
+        ))))
+
+(defun xah-test-exit-f-b ()
+  "example"
+  (interactive)
+  (if (y-or-n-p "invoke user-error to exit?")
+      (user-error "Error, because: %s" "you said so!")
+    (progn ; else, go on
+      (message "went on")
+      )))
+
+(defun xah-test-exit-mapc-a ()
+  "exit a map"
+  (setq myList [0 1 2 3 4 5])
+  ;; map lambda onto a list. If value 3 is found, return 3, else nil
+  (catch 'bbb
+    (mapc
+     (lambda (x)
+       (message "%s" x)
+       (when (equal x 3) (throw 'bbb x)))
+     myList)
+    nil
+    ))
+
+(defun xah-test-exit-while-loop-a ()
+  "Exit a While Loop by Flag.
+Here's a sample of setting flag:"
+  (interactive)
+  (let ((myList [0 1 2 3 4 5] )
+        (foundFlag-p nil )
+        (i 0))
+
+    (while (and
+            (not foundFlag-p)
+            (<= i (length myList)))
+
+      ;; if found, set foundFlag-p
+      (when (equal (elt myList i) 3)
+        (setq foundFlag-p t ))
+
+      (message "value: %s" i)
+      (setq i (1+ i))))
+  )
+
+
+(defun xah-hash-to-list (@hash-table)
+  "Return a list that represent the @HASH-TABLE
+Each element is a list: '(key value).
+
+http://ergoemacs.org/emacs/elisp_hash_table.html
+Version 2019-06-11"
+  (let ($result)
+    (maphash
+     (lambda (k v)
+       (push (list k v) $result))
+     @hash-table)
+    $result))
+
+
+(defun xah-my-print-hash (hashtable)
+  "Prints the hashtable, each line is key, val"
+  (maphash
+   (lambda (k v)
+     (princ (format "%s , %s" k v))
+     (princ "\n"))
+   hashtable
+   ))
+
+;; start elisp_symbol
+;; http://ergoemacs.org/emacs/elisp_symbol.html
+;; http://smacs.github.io/elisp/07-symbol.html
+
+;; (symbol-plist (intern "setq" obarray))
+;; (symbol-plist (intern "set" obarray))
+;; end elisp_symbol
+
+
+(defun xah-replace-BOM-mark-etc ()
+  "Query replace some invisible Unicode chars.
+The chars to be searched are:
+ RIGHT-TO-LEFT MARK 8207 x200f
+ ZERO WIDTH NO-BREAK SPACE 65279 xfeff
+
+start on cursor position to end."
+  (interactive)
+  (query-replace-regexp "\u200f\\|\ufeff" ""))
+
+
+;; emacs wrapper to a script in python, ruby, etc.
+(defun xah-do-something-region (startPos endPos)
+  "Do some text processing on region.
+This command calls the external script “wc”.
+
+In the above, just replace the /usr/bin/wc to the path of your script. You can include arguments as part
+of the command string. "
+
+  (interactive "r")
+  (let (cmdStr)
+    (setq cmdStr "/usr/bin/wc")         ; full path to your script
+    (shell-command-on-region startPos endPos cmdStr nil t nil t)))
+
+
+(defun xah-my-call-script-xyz ()
+  "example of calling a external command.
+passing text of region to its stdin.
+and passing current file name to the script as arg.
+replace region by its stdout."
+  (interactive)
+  (let ((cmdStr
+         (format
+          ;; "/usr/bin/python /home/joe/pythonscriptxyz %s"
+          "/usr/bin/python /mnt/c/Users/a/Desktop/delete/ergoemacs/a.py"
+          (buffer-file-name))))
+    (shell-command-on-region (region-beginning) (region-end) cmdStr nil "REPLACE" nil t)))
 
 
 
