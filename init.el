@@ -972,6 +972,20 @@ unwanted space when exporting org-mode to hugo markdown."
   ;;  (skip-chars-forward "HTTP/")        ; Skip HTTP Version
   ;;  (skip-chars-forward "http/")        ; Skip HTTP Version
   ;; end Skip HTTP Version
+
+  ;; start highlight-it
+
+  (defun highlite-it ()
+    "Highlight certain lines…"
+    (interactive)
+    (if (equal "log" (file-name-extension (buffer-file-name)))
+        (progn
+          (highlight-lines-matching-regexp "ERROR:" 'hi-red-b)
+          (highlight-lines-matching-regexp "NOTE:" 'hi-blue-b))))
+
+  (add-hook 'find-file-hook 'highlite-it)
+  ;; end highlight-it
+
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
