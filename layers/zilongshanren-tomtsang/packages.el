@@ -403,22 +403,22 @@
 ;; start flycheck
 ;; use local eslint from node_modules before global
 ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
-;; (defun zilongshanren-tomtsang/use-eslint-from-node-modules ()
-;;   (let* ((root (locate-dominating-file
-;;                 (or (buffer-file-name) default-directory)
-;;                 "node_modules"))
-;;          (eslint (and root
-;;                       (expand-file-name "node_modules/eslint/bin/eslint.js"
-;;                                         root))))
-;;     (when (and eslint (file-executable-p eslint))
-;;       (setq-local flycheck-javascript-eslint-executable eslint))))
+;; https://after.dev/emacs-flycheck-eslint-incorrect-config/
+(defun zilongshanren-tomtsang/use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
 
 (defun zilongshanren-tomtsang/init-flycheck ()
   (use-package flycheck
     :init
     :ensure t
     :config
-;;    (add-hook 'flycheck-mode-hook #'zilongshanren-tomtsang/use-eslint-from-node-modules)
     (setq-default flycheck-disabled-checkers
       (append flycheck-disabled-checkers
         '(javascript-jshint json-jsonlist)))
@@ -433,6 +433,7 @@
 
 (defun zilongshanren-tomtsang/post-init-flycheck-mode ()
   (global-flycheck-mode t)
+  (add-hook 'flycheck-mode-hook #'zilongshanren-tomtsang/use-eslint-from-node-modules)
   (add-hook 'js2-mode-hook 'flycheck-mode)
 ;;  (add-to-list 'flycheck-checkers 'javascript-eslint)
 ;;  (setq flycheck-javascript-eslint-executable "eslint_d")
