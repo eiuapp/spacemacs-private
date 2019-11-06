@@ -34,7 +34,6 @@
     bug-hunter
     ;; proxy-mode
     ;; w3m
-    company-tabnine
     ;; eslintd-fix
     ;; buffer-move
     ;; (sdcv-mode :location (recipe
@@ -57,16 +56,34 @@
     js-auto-format-mode
     key-chord
     ;; xah-fly-keys
+    company-tabnine
     ))
+
+;; start company-tabnine
+(defun zilongshanren-tomtsang/init-company-tabnine ()
+  (use-package company-tabnine
+    :init
+    :ensure t
+    :config
+    (add-to-list 'company-backends #'company-tabnine)
+    ;; Trigger completion immediately.
+    (setq company-idle-delay 0)
+
+    ;; Number the candidates (use M-1, M-2 etc to select completions).
+    (setq company-show-numbers t)
+
+    ;; because this package company-tabnine is always load, so add other .el package into company-tabnine.
+    (load-file "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/xah-fly-keys/xah-fly-keys.el")
+    (load-file "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/xeu_elisp_util.el/xeu_elisp_util.el")
+    ))
+;; end company-tabnine
+
 
 ;; start xah-fly-keys
 ;; (defun zilongshanren-tomtsang/init-xah-fly-keys ()
 ;;   (use-package xah-fly-keys
 ;;     :init
 ;;     :ensure t
-;;     ;; add other .el file
-;;     ;; (add-to-list 'load-path (expand-file-name "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/"))
-;;     (load-file "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/xeu_elisp_util.el/xeu_elisp_util.el")
 ;;     )
 ;;   )
 ;; end xah-fly-keys
@@ -86,6 +103,7 @@
     :ensure t)
   )
 ;; end jump-char
+
 
 ;; start iy-go-to-char
 (defun zilongshanren-tomtsang/init-iy-go-to-char ()
@@ -131,22 +149,6 @@
 ;;     (add-hook 'js2-mode-hook 'eslintd-fix-mode)
 ;;     ))
 ;; end eslintd-fix
-
-;; start company-tabnine
-(defun zilongshanren-tomtsang/init-company-tabnine ()
-  (use-package company-tabnine
-    :init
-    :ensure t
-    :config
-    (add-to-list 'company-backends #'company-tabnine)
-    ;; Trigger completion immediately.
-    (setq company-idle-delay 0)
-
-    ;; Number the candidates (use M-1, M-2 etc to select completions).
-    (setq company-show-numbers t)
-    (load-file "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/xah-fly-keys/xah-fly-keys.el")
-    ))
-;; end company-tabnine
 
 ;; buffer-move start
 (defun zilongshanren-tomtsang/init-buffer-move ()
