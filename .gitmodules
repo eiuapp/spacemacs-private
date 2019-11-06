@@ -1,3 +1,6 @@
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xeu_elisp_util.el"]
 	path = layers/zilongshanren-tomtsang/utils/manaul-install/xeu_elisp_util.el
 	url = https://github.com/xahlee/xeu_elisp_util.el
+[submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah-fly-keys"]
+	path = layers/zilongshanren-tomtsang/utils/manaul-install/xah-fly-keys
+	url = https://github.com/eiuapp/xah-fly-keys

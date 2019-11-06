@@ -56,19 +56,19 @@
     iy-go-to-char
     js-auto-format-mode
     key-chord
-    xah-fly-keys
+    ;; xah-fly-keys
     ))
 
 ;; start xah-fly-keys
-(defun zilongshanren-tomtsang/init-xah-fly-keys ()
-  (use-package xah-fly-keys
-    :init
-    ;; :ensure t
-    ;; add other .el file
-    ;; (add-to-list 'load-path (expand-file-name "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/"))
-    (load-file "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/xeu_elisp_util.el/xeu_elisp_util.el")
-    )
-  )
+;; (defun zilongshanren-tomtsang/init-xah-fly-keys ()
+;;   (use-package xah-fly-keys
+;;     :init
+;;     :ensure t
+;;     ;; add other .el file
+;;     ;; (add-to-list 'load-path (expand-file-name "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/"))
+;;     (load-file "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/xeu_elisp_util.el/xeu_elisp_util.el")
+;;     )
+;;   )
 ;; end xah-fly-keys
 
 ;; start key-chord
@@ -144,7 +144,7 @@
 
     ;; Number the candidates (use M-1, M-2 etc to select completions).
     (setq company-show-numbers t)
-
+    (load-file "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/xah-fly-keys/xah-fly-keys.el")
     ))
 ;; end company-tabnine
 
