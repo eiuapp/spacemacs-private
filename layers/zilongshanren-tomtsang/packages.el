@@ -1,4 +1,4 @@
-                                        ; -*- lexical-binding: t -*-
+; -*- lexical-binding: t -*-
 ;;; packages.el --- zilongshanren Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2014-2016 zilongshanren
@@ -56,7 +56,20 @@
     iy-go-to-char
     js-auto-format-mode
     key-chord
+    xah-fly-keys
     ))
+
+;; start xah-fly-keys
+(defun zilongshanren-tomtsang/init-xah-fly-keys ()
+  (use-package xah-fly-keys
+    :init
+    ;; :ensure t
+    ;; add other .el file
+    ;; (add-to-list 'load-path (expand-file-name "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/"))
+    (load-file "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/xeu_elisp_util.el/xeu_elisp_util.el")
+    )
+  )
+;; end xah-fly-keys
 
 ;; start key-chord
 (defun zilongshanren-tomtsang/init-key-chord ()

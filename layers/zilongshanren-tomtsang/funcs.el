@@ -25,7 +25,7 @@
         (insert str-val)
         (call-process-region (point-min) (point-max) "xsel" nil nil nil "--clipboard" "--input"))))))
 
-;; start lisha's ergoemacs: copy from http://ergoemacs.org/emacs/elisp.html
+;; start xah's ergoemacs: copy from http://ergoemacs.org/emacs/elisp.html
 (defun xah-insert-p-tag ()
   "Insert <p></p> at cursor point."
   (interactive)
@@ -54,15 +54,12 @@
     (set-mark pt)))
 
 
-;; turn on highlight selection
-;; (transient-mark-mode 1)
-
-(defun xah-select-current-line ()
-  "Select the current line"
-  (interactive)
-  (let ((pos (line-beginning-position)))
-    (end-of-line)
-    (set-mark pos)))
+;; (defun xah-select-current-line ()
+;;   "Select the current line"
+;;   (interactive)
+;;   (let ((pos (line-beginning-position)))
+;;     (end-of-line)
+;;     (set-mark pos)))
 
 
 (defun xah-replace-greek-region ()
@@ -129,16 +126,16 @@
   )
 
 
-(defun xah-delete-current-file ()
-  "Delete the file associated with the current buffer.
-Delete the current buffer too.
-If no file is associated, just close buffer without prompt for save."
-  (interactive)
-  (let ((currentFile (buffer-file-name)))
-    (when (yes-or-no-p (concat "Delete file?: " currentFile))
-      (kill-buffer (current-buffer))
-      (when currentFile
-        (delete-file currentFile)))))
+;; (defun xah-delete-current-file ()
+;;   "Delete the file associated with the current buffer.
+;; Delete the current buffer too.
+;; If no file is associated, just close buffer without prompt for save."
+;;   (interactive)
+;;   (let ((currentFile (buffer-file-name)))
+;;     (when (yes-or-no-p (concat "Delete file?: " currentFile))
+;;       (kill-buffer (current-buffer))
+;;       (when currentFile
+;;         (delete-file currentFile)))))
 
 (defun xah-insert-column-counter (n)
   "Insert a sequence of numbers vertically.
@@ -246,25 +243,25 @@ the cursor is the end-of-quotes."
   (message "Buffer had save to: %s" filePath))
 
 
-(defun xah-make-backup ()
-  "Make a backup copy of current buffer's file.
-Create a backup of current buffer's file.
-The new file name is the old file name with trailing “~”, in the same dir.
-If such a file already exist, append more “~”.
-If the current buffer is not associated with a file, its a error."
-  (interactive)
-  (let ((fName (spacemacs/copy-file-name))
-        ;; buffer-file-name
-        backupName )
-    (message "%s" fName)
-    (if (not fName)
-        (error "current buffer is not a file." )
-      (progn
-        (setq backupName (concat fName "~"))
-        (while (file-exists-p backupName)
-          (setq backupName (concat backupName "~")))
-        (copy-file fName backupName t)
-        (message (concat "Backup saved as: " (file-name-nondirectory backupName)))))))
+;; (defun xah-make-backup ()
+;;   "Make a backup copy of current buffer's file.
+;; Create a backup of current buffer's file.
+;; The new file name is the old file name with trailing “~”, in the same dir.
+;; If such a file already exist, append more “~”.
+;; If the current buffer is not associated with a file, its a error."
+;;   (interactive)
+;;   (let ((fName (spacemacs/copy-file-name))
+;;         ;; buffer-file-name
+;;         backupName )
+;;     (message "%s" fName)
+;;     (if (not fName)
+;;         (error "current buffer is not a file." )
+;;       (progn
+;;         (setq backupName (concat fName "~"))
+;;         (while (file-exists-p backupName)
+;;           (setq backupName (concat backupName "~")))
+;;         (copy-file fName backupName t)
+;;         (message (concat "Backup saved as: " (file-name-nondirectory backupName)))))))
 
 (defun xah-command ()
   "One sentence summary of what this command do.
@@ -295,27 +292,15 @@ and don't indent them."
     (message "region not active")))
 
 
-(defun xah-select-line ()
-  "Select current line."
-  (interactive)
-  (let (p1 p2)
-    (setq p1 (line-beginning-position))
-    (setq p2 (line-end-position))
-    (goto-char p1)
-    (push-mark p2)
-    (setq mark-active t)))
-
-
-(defun xah-select-line ()
-  "Select current line."
-  (interactive)
-  (let (p1 p2)
-    (setq p1 (line-beginning-position))
-    (setq p2 (line-end-position))
-    (goto-char p1)
-    (push-mark p2)
-    (setq mark-active t)))
-
+;; (defun xah-select-line ()
+;;   "Select current line."
+;;   (interactive)
+;;   (let (p1 p2)
+;;     (setq p1 (line-beginning-position))
+;;     (setq p2 (line-end-position))
+;;     (goto-char p1)
+;;     (push-mark p2)
+;;     (setq mark-active t)))
 
 (defun xah-downcase-word-or-region ()
   "Downcase current word or region."
@@ -707,6 +692,10 @@ start on cursor position to end."
   (interactive)
   (query-replace-regexp "\u200f\\|\ufeff" ""))
 
+;; end xah's ergoemacs: copy from http://ergoemacs.org/emacs/elisp.html
+
+;; start xah elisp command examples:
+;; http://ergoemacs.org/emacs/elisp_command_examples_index.html
 
 ;; emacs wrapper to a script in python, ruby, etc.
 (defun xah-do-something-region (startPos endPos)
@@ -735,7 +724,16 @@ replace region by its stdout."
           (buffer-file-name))))
     (shell-command-on-region (region-beginning) (region-end) cmdStr nil "REPLACE" nil t)))
 
+;; your can find the following functions in xah-fly-keys or xeu_elisp_util.el or other packages (can search github.com to find the packages)
+;; (defun xah-toggle-letter-case ()
+;; (defun xah-toggle-previous-letter-case ()
+;; (defun xah-title-case-region-or-line (@begin @end)
+;; (defun xah-upcase-sentence ()
+;; (defun xah-cycle-hyphen-underscore-space ( &optional @begin @end )
+;; (defun xah-escape-quotes (@begin @end)
+;; (defun xah-unescape-quotes (@begin @end)
+;; (defun xah-quote-lines ()
+;; (defun xah-space-to-newline ()
 
-
-
-;; end lisha's ergoemacs: copy from http://ergoemacs.org/emacs/elisp.html
+;; end xah elisp command examples:
+;; http://ergoemacs.org/emacs/elisp_command_examples_index.html
