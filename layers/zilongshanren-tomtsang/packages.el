@@ -72,9 +72,28 @@
     ;; Number the candidates (use M-1, M-2 etc to select completions).
     (setq company-show-numbers t)
 
+    ;; -----------------------------------------------------------
     ;; because this package company-tabnine is always load, so add other .el package into company-tabnine.
-    (load-file "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/xah-fly-keys/xah-fly-keys.el")
-    (load-file "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/xeu_elisp_util.el/xeu_elisp_util.el")
+    ;; start from xah lee
+    (setq git-submodule-dir "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/")
+    ;; (load-file "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/xah-replace-pairs/xah-replace-pairs.el")
+    (load-file (concat git-submodule-dir "xah-fly-keys/xah-fly-keys.el"))
+    (load-file (concat git-submodule-dir "xeu_elisp_util.el/xeu_elisp_util.el"))
+    (load-file (concat git-submodule-dir "xah-insert-random-id/xah-insert-random-id.el"))
+    (load-file (concat git-submodule-dir "xah-replace-pairs/xah-replace-pairs.el"))
+    (load-file (concat git-submodule-dir "xah_emacs_init/xah_emacs_replace_quotes.el"))
+    (load-file (concat git-submodule-dir "xah_emacs_init/xah_emacs_wordyenglish.el"))
+    (load-file (concat git-submodule-dir "xah_emacs_init/xah_emacs_misc.el"))
+    (load-file (concat git-submodule-dir "xah_emacs_init/xah_emacs_dired_commands.el"))
+    (load-file (concat git-submodule-dir "xah_emacs_init/xah_emacs_xahsite_path_lisp_util.el"))
+
+    (load-file (concat git-submodule-dir "xah-get-thing-or-selection/xah-get-thing.el"))
+    (load-file (concat git-submodule-dir "xah-css-mode/xah-css-mode.el"))
+    (load-file (concat git-submodule-dir "xah-html-mode/xah-html-mode.el"))
+
+    (add-hook 'text-mode-hook 'my-turn-spell-checking-on)
+    ;; end from xah lee
+    ;; -----------------------------------------------------------
     ))
 ;; end company-tabnine
 
@@ -219,15 +238,16 @@
 ;; )
 ;; ;; w3m end
 
-;; proxy-mode
-(defun zilongshanren-tomtsang/init-proxy-mode ()
-  (use-package proxy-mode
-    :init
-    :config
-    (setq url-gateway-local-host-regexp
-          (concat "\\`" (regexp-opt '("localhost" "127.0.0.1")) "\\'"))
-    )
-  )
+;; start proxy-mode
+;; (defun zilongshanren-tomtsang/init-proxy-mode ()
+;;   (use-package proxy-mode
+;;     :init
+;;     :config
+;;     (setq url-gateway-local-host-regexp
+;;           (concat "\\`" (regexp-opt '("localhost" "127.0.0.1")) "\\'"))
+;;     )
+;;   )
+;; end proxy-mode
 
 (defun zilongshanren-tomtsang/init-bug-hunter ()
   (use-package bug-hunter

@@ -724,7 +724,7 @@ replace region by its stdout."
           (buffer-file-name))))
     (shell-command-on-region (region-beginning) (region-end) cmdStr nil "REPLACE" nil t)))
 
-;; your can find the following functions in xah-fly-keys or xeu_elisp_util.el or other packages (can search github.com to find the packages)
+;; your can find the following functions in xahlee/xah-fly-keys or xeu_elisp_util.el or xah_emacs_init or other packages (can search github.com to find the packages)
 ;; (defun xah-toggle-letter-case ()
 ;; (defun xah-toggle-previous-letter-case ()
 ;; (defun xah-title-case-region-or-line (@begin @end)
@@ -734,6 +734,332 @@ replace region by its stdout."
 ;; (defun xah-unescape-quotes (@begin @end)
 ;; (defun xah-quote-lines ()
 ;; (defun xah-space-to-newline ()
+;; (defun xah-replace-straight-quotes (@begin @end)
+
+
+(defun what-hexadecimal-value ()
+  "Prints the decimal value of a hexadecimal string under cursor.
+Samples of valid input:
+
+  ffff
+  0xffff
+  #xffff
+  FFFF
+  0xFFFF
+  #xFFFF
+
+Test cases
+  64*0xc8+#x12c 190*0x1f4+#x258
+  100 200 300   400 500 600"
+  (interactive )
+
+  (let (inputStr tempStr p1 p2 )
+    (save-excursion
+      (re-search-backward "[^0-9A-Fa-fx#]" nil t)
+      (forward-char)
+      (setq p1 (point) )
+      (re-search-forward "[^0-9A-Fa-fx#]" nil t)
+      (backward-char)
+      (setq p2 (point) ) )
+
+    (setq inputStr (buffer-substring-no-properties p1 p2) )
+
+    (let ((case-fold-search nil) )
+      (setq tempStr (replace-regexp-in-string "^0x" "" inputStr )) ; C, Perl, …
+      (setq tempStr (replace-regexp-in-string "^#x" "" tempStr )) ; elisp …
+      (setq tempStr (replace-regexp-in-string "^#" "" tempStr ))  ; CSS …
+      )
+
+    (message "Hex %s is %d" tempStr (string-to-number tempStr 16 ) )
+    ))
+
+
+(defun curly-quotes-to-emacs-function-tag (p1 p2)
+  "Replace “word” to HTML markup for elisp function in text selection or current buffer (respects `narrow-to-region').
+
+For example, the text:
+ <p>Call “sort-lines” to sort.</p>
+becomes
+ <p>Call <var class=\"εf\">sort-lines› to sort.</p>
+
+Note: a word is changed only if all of the following are true:
+
+① It is enclosed in <p> tag, or <ul>, <ol>, <table>, <figcaption>. (For example, not inside <h1> or <title>, <a>, or other tags.)
+② It is enclosed in “double curly quotes”.
+③ `fboundp' returns true.
+
+This command assumes that all tags are closed in your HTML. For example: <p> must be closed with </p>.
+
+This command also makes a report of changed items.
+
+Some issues:
+
+• If the lisp functions name is less than 2 chars, it won't be tagged. For example: + - 1+ ….
+
+• Only words contaning lowercase a to z, 0-9, or hyphen, are checked, even though elisp identifier allows many other chars. For example: “yas/reload-all”, “Info-copy-current-node-name” (note capital letter).
+
+• Some words are common in other lang, for example, “while”, “print”, “string”, unix's “find”, “grep”, HTML's “kbd” tag, etc. But they are also built-in elisp symbols. So, you may not want to tag them.
+
+• Personal emacs functions will also be tagged. You may not want them to be because they are not standard functions.
+
+• Some functions are from 3rd party libs, and some are not bundled with GNU emacs , for example, 「'cl」, 「'htmlize」. They may or may not be tagged depending whether they've been loaded."
+  (interactive
+   (if (use-region-p)
+       (list (region-beginning) (region-end))
+     (list (point-min) (point-max)) ) )
+  (require 'sgml-mode) ; from html-mode, needs sgml-skip-tag-forward
+  (let (p3 p4 mStr ($i 0) (case-fold-search nil) )
+    (save-excursion
+      (save-restriction
+        (narrow-to-region p1 p2)
+        (goto-char (point-min))
+        (while (re-search-forward "<p>\\|<ul>\\|<ol>\\|<table\\|<figcaption>" nil t)
+          (backward-char)
+          (setq p3 (point) )
+          (sgml-skip-tag-forward 1)
+          (setq p4 (point) )
+
+          (save-restriction
+            (narrow-to-region p3 p4)
+            (goto-char (point-min))
+            (while (re-search-forward "“\\([-a-z0-9]+\\)”" (point-max) t)
+              (setq mStr (match-string 1) )
+
+              (when (and (fboundp (intern mStr))
+                         (> (length mStr) 2))
+                (replace-match (concat "<var class=\"εf\">" mStr "›") t t)
+                (setq $i (1+ $i) )
+                ) ) ) )
+        (when (> $i 0)
+          (occur "<var class=\"εf\">[-a-z0-9]+›" )) ) ) ))
+
+
+(defun make-citation ()
+  "Reformat current text block or selection into a canonical citation format.
+
+For example, place cursor somewhere in the following block:
+
+Circus Maximalist
+By PAUL GRAY
+Monday, Sep. 12, 1994
+http://www.time.com/time/magazine/article/0,9171,981408,00.html
+
+After execution, the lines will become
+
+<cite>Circus Maximalist</cite> (1994-09-12) By Paul Gray. @ <a href=\"http://www.time.com/time/magazine/article/0,9171,981408,00.html\">Source www.time.com</a>
+
+If there's a text selection, use it for input, otherwise the input is a text block between empty lines."
+  (interactive)
+  (let (bds p1 p2 inputText myList $title $author $date $url )
+
+    (setq bds (get-selection-or-unit 'block))
+    (setq inputText (elt bds 0) )
+    (setq p1 (elt bds 1) )
+    (setq p2 (elt bds 2) )
+
+    (setq inputText (replace-regexp-in-string "^[[:space:]]*" "" inputText)) ; remove white space in front
+
+    (setq myList (split-string inputText "[[:space:]]*\n[[:space:]]*" t) )
+
+    (setq $title (elt myList 0))
+    (setq $author (elt myList 1))
+    (setq $date (elt myList 2))
+    (setq $url (elt myList 3))
+
+    (setq $author (replace-regexp-in-string "\\. " " " $author)) ; remove period in Initals
+    (setq $author (replace-regexp-in-string "By +" "" $author))
+    (setq $author (upcase-initials (downcase $author)))
+    (setq $date (fix-timestamp-string $date))
+
+    (setq $url (with-temp-buffer (insert $url) (source-linkify) (buffer-string)))
+
+    (delete-region p1 p2 )
+    (insert (concat "<cite>" $title "</cite>") " " "(" $date ")"  " By " $author ". @ " $url)
+    ))
+
+
+(defun xah-count-words-region-or-line ()
+  "Print number of words and chars in text selection or line.
+In emacs 24, you can use `count-words'."
+  (interactive)
+  (let (p1 p2)
+    (if (region-active-p)
+        (progn (setq p1 (region-beginning))
+               (setq p2 (region-end)))
+      (progn (setq p1 (line-beginning-position))
+             (setq p2 (line-end-position))))
+    (save-excursion
+      (let (wCnt charCnt)
+        (setq wCnt 0)
+        (setq charCnt (- p2 p1))
+        (goto-char p1)
+        (while (and (< (point) p2) (re-search-forward "\\w+\\W*" p2 t))
+          (setq wCnt (1+ wCnt)))
+        (message "Words: %d. Chars: %d." wCnt charCnt)))))
+
+
+(defun my-count-words-region (posBegin posEnd)
+  "Print number of words and chars in region."
+  (interactive "r")
+  (message "Counting …")
+  (save-excursion
+    (let (wordCount charCount)
+      (setq wordCount 0)
+      (setq charCount (- posEnd posBegin))
+      (goto-char posBegin)
+      (while (and (< (point) posEnd)
+                  (re-search-forward "\\w+\\W*" posEnd t))
+        (setq wordCount (1+ wordCount)))
+
+      (message "Words: %d. Chars: %d." wordCount charCount)
+      )))
+
+
+(defun xwe-move-word-to-page (@category)
+  "Take current selection or block of text, ask which page to move it to."
+  (interactive
+   (list (ido-completing-read "Which:" '("specialwords"
+                                         "arcane"
+                                         "combowords"
+                                         "easy"
+                                         "foreignwords"
+                                         "gre"
+                                         "hyphwords"
+                                         "informal"
+                                         "slang"
+                                         "noun"
+                                         "noun_things"
+                                         "noun_abs"
+                                         "poesy"
+                                         "satwords"
+                                         "writerwords"))))
+  (let (
+        p1
+        p2
+        $wordText
+        ($destFile (concat @category ".html")))
+    (if (use-region-p)
+        (progn
+          (setq p1 (region-beginning))
+          (setq p2 (region-end)))
+      (save-excursion
+        (if (re-search-backward "\n[ \t]*\n" nil "move")
+            (progn (re-search-forward "\n[ \t]*\n")
+                   (setq p1 (point)))
+          (setq p1 (point)))
+        (if (re-search-forward "\n[ \t]*\n" nil "move")
+            (progn (re-search-backward "\n[ \t]*\n")
+                   (setq p2 (point)))
+          (setq p2 (point)))))
+
+    (setq $wordText (buffer-substring-no-properties p1 p2))
+    (delete-region p1 p2 )
+
+    (find-file (concat (xahsite-server-root-path) "wordyenglish_com/words/" $destFile))
+    (goto-char 1)
+    (search-forward "<section class=\"word\">") (search-backward "<")
+    (insert $wordText "\n\n")
+    (save-buffer )
+    (kill-buffer )
+    (message "Word moved to 「%s」" $destFile)
+
+    (let*
+        ;; save the working buffer, but make backup first
+        (($fname (buffer-file-name))
+         ($backupName (concat $fname "~" (format-time-string "%Y%m%d_%H%M%S") "~")))
+      (copy-file $fname $backupName t)
+      (save-buffer ))))
+
+
+(defun xwe-move-word-to-page (@category)
+  "Take current selection or block of text, ask which page to move it to."
+  (interactive
+   (list (ido-completing-read "Which:" '("specialwords"
+                                         "arcane"
+                                         "combowords"
+                                         "easy"
+                                         "foreignwords"
+                                         "gre"
+                                         "hyphwords"
+                                         "informal"
+                                         "slang"
+                                         "noun"
+                                         "noun_things"
+                                         "noun_abs"
+                                         "poesy"
+                                         "satwords"
+                                         "writerwords"))))
+  (let (
+        p1
+        p2
+        $wordText
+        ($destFile (concat @category ".html")))
+    (if (use-region-p)
+        (progn
+          (setq p1 (region-beginning))
+          (setq p2 (region-end)))
+      (save-excursion
+        (if (re-search-backward "\n[ \t]*\n" nil "move")
+            (progn (re-search-forward "\n[ \t]*\n")
+                   (setq p1 (point)))
+          (setq p1 (point)))
+        (if (re-search-forward "\n[ \t]*\n" nil "move")
+            (progn (re-search-backward "\n[ \t]*\n")
+                   (setq p2 (point)))
+          (setq p2 (point)))))
+
+    (setq $wordText (buffer-substring-no-properties p1 p2))
+    (delete-region p1 p2 )
+
+    (find-file (concat (xahsite-server-root-path) "wordyenglish_com/words/" $destFile))
+    (goto-char 1)
+    (search-forward "<section class=\"word\">") (search-backward "<")
+    (insert $wordText "\n\n")
+    (save-buffer )
+    (kill-buffer )
+    (message "Word moved to 「%s」" $destFile)
+
+    (let*
+        ;; save the working buffer, but make backup first
+        (($fname (buffer-file-name))
+         ($backupName (concat $fname "~" (format-time-string "%Y%m%d_%H%M%S") "~")))
+      (copy-file $fname $backupName t)
+      (save-buffer ))))
+
+
+(defun insert-random-uuid-by-random ()
+  "Insert a random UUID.
+Example of a UUID: 1df63142-a513-c850-31a3-535fc3520c3d
+
+WARNING: this is a simple implementation. The chance of generating the same UUID is much higher than a robust algorithm.."
+  (interactive)
+  (insert
+   (format "%04x%04x-%04x-%04x-%04x-%06x%06x"
+           (random (expt 16 4))
+           (random (expt 16 4))
+           (random (expt 16 4))
+           (random (expt 16 4))
+           (random (expt 16 4))
+           (random (expt 16 6))
+           (random (expt 16 6)) ) ) )
+
+
+(defun insert-random-uuid-by-shell ()
+  (interactive)
+  (shell-command "uuidgen" t))
 
 ;; end xah elisp command examples:
 ;; http://ergoemacs.org/emacs/elisp_command_examples_index.html
+
+
+
+;; start xah practical emacs tutorial:
+;; http://ergoemacs.org/emacs/emacs.html
+
+(defun my-turn-spell-checking-on ()
+  "Turn flyspell-mode on."
+  (flyspell-mode 1)
+  )
+
+;; end xah practical emacs tutorial:
+;; http://ergoemacs.org/emacs/emacs.html
