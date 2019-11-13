@@ -1061,5 +1061,6 @@ WARNING: this is a simple implementation. The chance of generating the same UUID
   (flyspell-mode 1)
   )
 
+
 ;; end xah practical emacs tutorial:
 ;; http://ergoemacs.org/emacs/emacs.html
