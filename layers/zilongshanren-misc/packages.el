@@ -1293,8 +1293,12 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     (setq magit-push-always-verify nil)
 
     (eval-after-load 'magit
-      '(define-key magit-mode-map (kbd "C-c g")
-         #'zilongshanren/magit-visit-pull-request))
+      '(progn
+             (evil-magit-toggle-text-minor-mode)
+             '(define-key magit-mode-map (kbd "C-c g")
+                #'zilongshanren/magit-visit-pull-request))
+             )
+
 
     (setq magit-process-popup-time 10)))
 
