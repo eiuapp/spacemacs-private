@@ -56,6 +56,8 @@
     js-auto-format-mode
     key-chord
     ;; xah-fly-keys
+    xah-find
+    xah-math-input
     company-tabnine
     ))
 
@@ -97,6 +99,24 @@
     ))
 ;; end company-tabnine
 
+;; start xah-math-input
+(defun zilongshanren-tomtsang/init-xah-math-input ()
+  (use-package xah-math-input
+    :init
+    :ensure nil
+    )
+  )
+;; end xah-math-input
+
+
+;; start xah-find
+(defun zilongshanren-tomtsang/init-xah-find ()
+  (use-package xah-find
+    :init
+    :ensure t
+    )
+  )
+;; end xah-find
 
 ;; start xah-fly-keys
 ;; (defun zilongshanren-tomtsang/init-xah-fly-keys ()
