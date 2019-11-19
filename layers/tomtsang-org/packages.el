@@ -424,6 +424,14 @@ See `org-capture-templates' for more information."
                :sitemap-title "我的wiki"     ; ... with title 'Sitemap'.
                :sitemap-sort-files anti-chronologically
                :sitemap-file-entry-format "%t" ; %d to output date, we don't need date here
+
+               :html-doctype "html5"
+               :html-validation-link nil
+               ;; :html-link-home "/emacsist/index.html"
+               :html-link-home "/index.html"
+               ;; :html-link-up "/emacsist/index.html"
+               :html-link-up "/index.html"
+
                )
               ("blog-static"
                :base-directory "~/git/org-blog/asserts/"
