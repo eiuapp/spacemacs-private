@@ -67,7 +67,7 @@ This function should only modify configuration layer settings."
           osx-command-as 'super)
      restclient
      (gtags :disabled-for clojure emacs-lisp javascript latex python shell-scripts)
-     (shell :variables shell-default-shell 'shell)
+     (shell :variables shell-default-shell 'eshell)
      ;; (shell :variables shell-default-shell 'ansi-term
      ;;       shell-default-term-shell "/bin/zsh")
      ;; docker
@@ -107,6 +107,7 @@ This function should only modify configuration layer settings."
             ;; c-c++-backend 'lsp-ccls
             ;; c-c++-lsp-executable (file-truename "/usr/local/bin/ccls"))
      zilongshanren
+     ;; tomtsang
      (chinese :packages youdao-dictionary fcitx
               :variables chinese-enable-fcitx nil
               chinese-enable-youdao-dict t)
