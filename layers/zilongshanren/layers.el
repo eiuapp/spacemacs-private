@@ -13,7 +13,7 @@
                                       zilongshanren-misc
                                       zilongshanren-programming
                                       zilongshanren-ui
-                                      zilongshanren-tomtsang
-                                      zilongshanren-org
+                                      ;; zilongshanren-org
                                       zilongshanren-better-defaults
+                                      ;; zilongshanren-tomtsang
                                       ))

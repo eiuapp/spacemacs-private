@@ -10,3 +10,7 @@
 ;;; License: GPLv3
 
 ;; (configuration-layer/remove-layer 'chinese)
+
+(configuration-layer/declare-layers '(
+                                      tomtsang-org
+                                      ))
