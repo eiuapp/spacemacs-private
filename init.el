@@ -986,6 +986,40 @@ unwanted space when exporting org-mode to hugo markdown."
   (add-hook 'find-file-hook 'highlite-it)
   ;; end highlight-it
 
+  ;; start irc
+  (setq rcirc-default-nick "tomtsang")
+  ;; end irc
+
+  ;; start winner-mode
+  ;; restore split pane config, winner-undo, winner-redo
+  (winner-mode t)                       ; in GNU emacs 23.2
+  ;; end winner-mode
+
+  ;; start desktop-save-mode
+                                        ; save/restore opened files and windows config
+  (desktop-save-mode 1)                 ; 0 for off
+  ;; end desktop-save-mode
+
+  ;; start use Shift+arrow_keys to move cursor around split panes
+  (progn
+    (require 'windmove)
+    ;; use Shift+arrow_keys to move cursor around split panes
+    (windmove-default-keybindings)
+    ;; when cursor is on edge, move to the other side, as in a torus space
+    (setq windmove-wrap-around t )
+    )
+  ;; end use Shift+arrow_keys to move cursor around split panes
+
+  ;; start save bookmarks
+  ;; everytime bookmark is changed, automatically save it
+  (setq bookmark-save-flag 1)
+  ;; Set Emacs to Open Bookmark File on Start
+  (require 'bookmark)
+  (setq inhibit-splash-screen t)
+  (bookmark-bmenu-list)
+  (switch-to-buffer "*Bookmark List*")
+  ;; end save bookmarks
+
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
