@@ -387,8 +387,8 @@ See `org-capture-templates' for more information."
       (defvar tomtsang-website-html-preamble
         "<div class='nav'>
 <ul>
-<li><a href='http://tomtsang.com'>博客</a></li>
-<li><a href='/index.html'>Wiki目录</a></li>
+<li><a href='http://eiu.app'>blog</a></li>
+<li><a href='/index.html'>wiki</a></li>
 </ul>
 </div>")
       (defvar tomtsang-website-html-blog-head
@@ -421,7 +421,7 @@ See `org-capture-templates' for more information."
                ;; about sitemap
                :auto-sitemap t          ; Generate sitemap.org automagically...
                :sitemap-filename "index.org" ; ... call it sitemap.org (it's the default)...
-               :sitemap-title "我的wiki"     ; ... with title 'Sitemap'.
+               :sitemap-title "wiki"     ; ... with title 'Sitemap'.
                :sitemap-sort-files anti-chronologically
                :sitemap-file-entry-format "%t" ; %d to output date, we don't need date here
 
