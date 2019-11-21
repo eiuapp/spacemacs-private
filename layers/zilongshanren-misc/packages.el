@@ -1265,14 +1265,21 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
   (progn
     (with-eval-after-load 'magit
       (progn
-
         (add-to-list 'magit-no-confirm 'stage-all-changes)
         (define-key magit-log-mode-map (kbd "W") 'magit-copy-section-value)
         (setq magit-completing-read-function 'magit-builtin-completing-read)
 
-        (magit-define-popup-switch 'magit-push-popup ?u
-                                   "Set upstream" "--set-upstream")
-
+        ;; (magit-define-popup-switch 'magit-push-popup ?u
+        ;;                            "Set upstream" "--set-upstream")
+        ;; reference https://github.com/magit/magit/wiki/Converting-popup-modifications-to-transient-modifications
+        (transient-append-suffix 'magit-push "-u"
+          '("Set upstream" "--set-upstream"))
+        ;; magit-popup
+        ;; (magit-define-popup-switch 'magit-log-popup
+        ;;                            ?1 "First parent" "--first-parent")
+        ;; transient
+        ;; (transient-append-suffix 'magit-log "-A"
+        ;;   '("-1" "First parent" "--first-parent"))
 
         (magit-add-section-hook 'magit-status-sections-hook
                                 'magit-insert-assume-unchanged-files nil t)
