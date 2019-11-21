@@ -14,7 +14,7 @@
 	path = layers/zilongshanren-tomtsang/utils/manaul-install/xah-css-mode
 	url = https://github.com/xahlee/xah-css-mode
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah-html-mode"]
-	path = layers/zilongshanren-tomtsang/utils/manaul-install/xah-html-mode
+	path = site-lisp/extensions/xah-html-mode.el
 	url = https://github.com/xahlee/xah-html-mode.el
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah-get-thing-or-selection"]
 	path = layers/zilongshanren-tomtsang/utils/manaul-install/xah-get-thing-or-selection
@@ -22,3 +22,7 @@
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah-insert-random-id"]
 	path = layers/zilongshanren-tomtsang/utils/manaul-install/xah-insert-random-id
 	url = https://github.com/xahlee/xah-insert-random-id.el
+[submodule "site-lisp/extensions/yasnippet-snippets"]
+	path = site-lisp/extensions/yasnippet-snippets
+	url = https://github.com/eiuapp/yasnippet-snippets.git
+	branch = eiuapp

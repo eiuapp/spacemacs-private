@@ -83,13 +83,13 @@ comment box."
     (progn
       (yas-global-mode 1)
       ;; (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/snippets"))
-      ;; https://github.com/AndreaCrotti/yasnippet-snippets; 
+      ;; https://github.com/AndreaCrotti/yasnippet-snippets;
       ;; 提前下载好文件 `git clone https://github.com/AndreaCrotti/yasnippet-snippets ~/emacs/yasnippet-snippets`
-      (setq andreacrotti-yasnippet-snippet-dir (expand-file-name "~/emacs/yasnippet-snippets/snippets"))
-      (setq my-snippet-dir (expand-file-name "~/emacs/yasnippet-snippets/snippets"))
+      ;; (setq andreacrotti-yasnippet-snippet-dir (expand-file-name "~/emacs/yasnippet-snippets/snippets"))
+      (setq my-snippet-dir (expand-file-name "~/.spacemacs.d/site-lisp/extensions/yasnippet-snippets/snippets"))
       ;; https://github.com/joaotavora/yasnippet/blob/master/README.mdown#L88-L92
       ;; 尝试能不能加载多个文件夹,从而可以加载多人的snippets配置
-      ;; (setq yas-snippet-dirs '(my-snippet-dir andreacrotti-yasnippet-snippet-dir)) 
+      ;; (setq yas-snippet-dirs '(my-snippet-dir andreacrotti-yasnippet-snippet-dir))
       (setq yas-snippet-dirs '(my-snippet-dir))
       (yas-load-directory my-snippet-dir)
       ;; (yas-load-directory yas-snippet-dirs) ;; 这个写法是错误的,重启后 yas-snippet-dirs 的值会不正确.
