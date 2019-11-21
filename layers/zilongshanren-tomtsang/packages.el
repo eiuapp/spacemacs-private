@@ -77,11 +77,11 @@
     ;; -----------------------------------------------------------
     ;; because this package company-tabnine is always load, so add other .el package into company-tabnine.
     ;; start from xah lee
-    (setq git-submodule-dir "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/")
-    ;; (load-file "~/.spacemacs.d/layers/zilongshanren-tomtsang/utils/manaul-install/xah-replace-pairs/xah-replace-pairs.el")
+    (setq git-submodule-dir "~/.spacemacs.d/site-lisp/extensions/")
+    ;; (load-file "~/.spacemacs.d/site-lisp/extensions/xah-replace-pairs/xah-replace-pairs.el")
     (load-file (concat git-submodule-dir "xah-fly-keys/xah-fly-keys.el"))
     (load-file (concat git-submodule-dir "xeu_elisp_util.el/xeu_elisp_util.el"))
-    (load-file (concat git-submodule-dir "xah-insert-random-id/xah-insert-random-id.el"))
+    (load-file (concat git-submodule-dir "xah-insert-random-id.el/xah-insert-random-id.el"))
     (load-file (concat git-submodule-dir "xah-replace-pairs/xah-replace-pairs.el"))
     (load-file (concat git-submodule-dir "xah_emacs_init/xah_emacs_replace_quotes.el"))
     (load-file (concat git-submodule-dir "xah_emacs_init/xah_emacs_wordyenglish.el"))
@@ -91,7 +91,7 @@
 
     (load-file (concat git-submodule-dir "xah-get-thing-or-selection/xah-get-thing.el"))
     (load-file (concat git-submodule-dir "xah-css-mode/xah-css-mode.el"))
-    (load-file (concat git-submodule-dir "xah-html-mode/xah-html-mode.el"))
+    (load-file (concat git-submodule-dir "xah-html-mode.el/xah-html-mode.el"))
 
     (add-hook 'text-mode-hook 'my-turn-spell-checking-on)
     ;; end from xah lee

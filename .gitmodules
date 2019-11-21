@@ -1,26 +1,26 @@
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xeu_elisp_util.el"]
-	path = layers/zilongshanren-tomtsang/utils/manaul-install/xeu_elisp_util.el
+	path = site-lisp/extensions/xeu_elisp_util.el
 	url = https://github.com/xahlee/xeu_elisp_util.el
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah-fly-keys"]
-	path = layers/zilongshanren-tomtsang/utils/manaul-install/xah-fly-keys
+	path = site-lisp/extensions/xah-fly-keys
 	url = https://github.com/eiuapp/xah-fly-keys
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah_emacs_init"]
-	path = layers/zilongshanren-tomtsang/utils/manaul-install/xah_emacs_init
+	path = site-lisp/extensions/xah_emacs_init
 	url = https://github.com/xahlee/xah_emacs_init
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah-replace-pairs"]
-	path = layers/zilongshanren-tomtsang/utils/manaul-install/xah-replace-pairs
+	path = site-lisp/extensions/xah-replace-pairs
 	url = https://github.com/xahlee/xah-replace-pairs
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah-css-mode"]
-	path = layers/zilongshanren-tomtsang/utils/manaul-install/xah-css-mode
+	path = site-lisp/extensions/xah-css-mode
 	url = https://github.com/xahlee/xah-css-mode
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah-html-mode"]
 	path = site-lisp/extensions/xah-html-mode.el
 	url = https://github.com/xahlee/xah-html-mode.el
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah-get-thing-or-selection"]
-	path = layers/zilongshanren-tomtsang/utils/manaul-install/xah-get-thing-or-selection
+	path = site-lisp/extensions/xah-get-thing-or-selection
 	url = https://github.com/xahlee/xah-get-thing-or-selection
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah-insert-random-id"]
-	path = layers/zilongshanren-tomtsang/utils/manaul-install/xah-insert-random-id
+	path = site-lisp/extensions/xah-insert-random-id.el
 	url = https://github.com/xahlee/xah-insert-random-id.el
 [submodule "site-lisp/extensions/yasnippet-snippets"]
 	path = site-lisp/extensions/yasnippet-snippets
