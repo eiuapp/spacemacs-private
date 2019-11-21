@@ -4,6 +4,7 @@
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah-fly-keys"]
 	path = site-lisp/extensions/xah-fly-keys
 	url = https://github.com/eiuapp/xah-fly-keys
+	branch = eiuapp
 [submodule "layers/zilongshanren-tomtsang/utils/manaul-install/xah_emacs_init"]
 	path = site-lisp/extensions/xah_emacs_init
 	url = https://github.com/xahlee/xah_emacs_init
