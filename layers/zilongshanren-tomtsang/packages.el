@@ -58,6 +58,7 @@
     ;; xah-fly-keys
     xah-find
     xah-math-input
+    elmacro
     company-tabnine
     ))
 
@@ -99,6 +100,16 @@
     ))
 ;; end company-tabnine
 
+;; start elmacro
+;; Shows keyboard macros or latest interactive commands as emacs lisp.
+(defun zilongshanren-tomtsang/init-elmacro ()
+  (use-package elmacro
+    :init
+    ;; :ensure t
+    )
+  )
+;; end elmacro
+
 ;; start xah-math-input
 (defun zilongshanren-tomtsang/init-xah-math-input ()
   (use-package xah-math-input
@@ -107,7 +118,6 @@
     )
   )
 ;; end xah-math-input
-
 
 ;; start xah-find
 (defun zilongshanren-tomtsang/init-xah-find ()
