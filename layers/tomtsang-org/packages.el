@@ -42,9 +42,24 @@
 (defun tomtsang-org/post-init-org-pomodoro ()
   (zilongshanren/pomodoro-notification))
 
+;; if use, let the function name be: `tomtsang-org/post-init-org
+(defun tomtsang-org/post-init-org-worg-css ()
+  "use the worg css.
+
+the css is orgmode.org used.
+example: `https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html`.
+the prerequisites: read the `blog/css-for-org-exported-html.html`
+"
+  (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-off)) 'append)
+  (with-eval-after-load 'org
+    (progn
+      (load "~/.spacemacs.d/site-lisp/extensions/worg-css/emacs.el")
+      )))
+
 ;;In order to export pdf to support Chinese, I should install Latex at here: https://www.tug.org/mactex/
 ;; http://freizl.github.io/posts/2012-04-06-export-orgmode-file-in-Chinese.html
 ;;http://stackoverflow.com/questions/21005885/export-org-mode-code-block-and-result-with-different-styles
+;; from zilongshanren. if use, let the function name be: `tomtsang-org/post-init-org
 (defun tomtsang-org/post-init-org ()
   (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-off)) 'append)
   (with-eval-after-load 'org

@@ -12,5 +12,6 @@
 ;; (configuration-layer/remove-layer 'chinese)
 
 (configuration-layer/declare-layers '(
-                                      tomtsang-org
+                                      worg-css ;; worg css. if the `worg-css` after `tomtsang-org`, then will not effective.
+                                      tomtsang-org ;; from zilongshanren
                                       ))

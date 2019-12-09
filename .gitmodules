@@ -27,3 +27,7 @@
 	path = site-lisp/extensions/yasnippet-snippets
 	url = https://github.com/eiuapp/yasnippet-snippets.git
 	branch = eiuapp
+[submodule "worg-css"]
+	path = site-lisp/extensions/worg-css
+	url = https://github.com/eiuapp/worg-css.git
+	branch = master
