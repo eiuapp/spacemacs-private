@@ -403,22 +403,24 @@ See `org-capture-templates' for more information."
         "<div class='nav'>
 <ul>
 <li><a href='http://eiu.app'>blog</a></li>
-<li><a href='/index.html'>wiki</a></li>
+<li><a href='../index.html'>wiki</a></li>
 </ul>
 </div>")
       (defvar tomtsang-website-html-blog-head
         " <link rel='stylesheet' href='css/site.css' type='text/css'/> \n
-    <link rel=\"stylesheet\" type=\"text/css\" href=\"/css/worg.css\"/>")
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"/css/worg.css\"/>"
+        )
+      ;; <link rel=\"stylesheet\" type=\"text/css\" href=\"/css/worg.css\"/>
 
       (setq org-publish-project-alist
             `(
               ("blog-notes"
                ;; :base-directory "~/org-notes"
                ;; :base-directory "~/git/org-blog/org-sources/"
-               :base-directory "~/git/org-blog/org-sources/"
+               :base-directory "~/org/blog/org-sources/"
                :base-extension "org"
                ;; :publishing-directory "~/org-notes/public_html/"
-               :publishing-directory "~/git/org-blog/publish/"
+               :publishing-directory "~/org/blog/publish/"
 
                :recursive t
                :html-head , tomtsang-website-html-blog-head
@@ -430,74 +432,75 @@ See `org-capture-templates' for more information."
                :exclude-tags ("ol" "noexport")
                :section-numbers nil
                :html-preamble ,tomtsang-website-html-preamble
-               :author "tomtsang"
+               :author "yunlongzeng"
                :email "273412935@qq.com"
 
                ;; about sitemap
                :auto-sitemap t          ; Generate sitemap.org automagically...
                :sitemap-filename "index.org" ; ... call it sitemap.org (it's the default)...
-               :sitemap-title "wiki"     ; ... with title 'Sitemap'.
+               :sitemap-title "wiki"         ; ... with title 'Sitemap'.
                :sitemap-sort-files anti-chronologically
                :sitemap-file-entry-format "%t" ; %d to output date, we don't need date here
 
                :html-doctype "html5"
                :html-validation-link nil
                ;; :html-link-home "/emacsist/index.html"
-               :html-link-home "/index.html"
+               ;; :html-link-home "/index.html"
+               :html-link-home "http://eiu.app"
                ;; :html-link-up "/emacsist/index.html"
-               :html-link-up "/index.html"
+               :html-link-up "../index.html"
 
                )
               ("blog-static"
-               :base-directory "~/git/org-blog/asserts/"
+               :base-directory "~/org/blog/asserts/"
                :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
                ;; :publishing-directory "~/org-notes/public_html/"
-               :publishing-directory "~/git/org-blog/publish/"
+               :publishing-directory "~/org/blog/publish/"
                :recursive t
                :publishing-function org-publish-attachment
                )
               ("blog" :components ("blog-notes" "blog-static"))))
 
-  ;; ;;Org publish
-  ;; (setq org-publish-project-alist
-  ;;   '(
-  ;;     ("blog-notes"
-  ;;      :base-directory "~/git/org-blog/org-sources/"
-  ;;      :base-extension "org"
-  ;;      :publishing-directory "~/git/org-blog/publish/"
-  ;;      :recursive t
-  ;;      :publishing-function org-html-publish-to-html
-  ;;      :headline-levels 4
-  ;;      :section-numbers nil
-  ;;      :auto-preamble t
-  ;;      :with-toc t
+      ;; ;;Org publish
+      ;; (setq org-publish-project-alist
+      ;;   '(
+      ;;     ("blog-notes"
+      ;;      :base-directory "~/git/org-blog/org-sources/"
+      ;;      :base-extension "org"
+      ;;      :publishing-directory "~/git/org-blog/publish/"
+      ;;      :recursive t
+      ;;      :publishing-function org-html-publish-to-html
+      ;;      :headline-levels 4
+      ;;      :section-numbers nil
+      ;;      :auto-preamble t
+      ;;      :with-toc t
 
-  ;;      :sitemap-file-entry-format "%d ====> %t"
-  ;;      :sitemap-sort-files anti-chronologically
-  ;;      :sitemap-filename "index.org"
-  ;;      :sitemap-title "Emacsist"
-  ;;      :auto-sitemap t
+      ;;      :sitemap-file-entry-format "%d ====> %t"
+      ;;      :sitemap-sort-files anti-chronologically
+      ;;      :sitemap-filename "index.org"
+      ;;      :sitemap-title "Emacsist"
+      ;;      :auto-sitemap t
 
-  ;;      :html-doctype "html5"
-  ;;      :html-validation-link nil
-  ;;      :html-link-home "/emacsist/index.html"
-  ;;      :html-link-up "/emacsist/index.html"
+      ;;      :html-doctype "html5"
+      ;;      :html-validation-link nil
+      ;;      :html-link-home "/emacsist/index.html"
+      ;;      :html-link-up "/emacsist/index.html"
 
-  ;;      :author "emacsist"
-  ;;      :email "emacsist@.qq.com"
-  ;;      :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/emacsist/css/org-mode.css\"/>"
-  ;;      :language "zh-CN"
-  ;;      )
-  ;;     ("blog-static"
-  ;;      :base-directory "~/git/org-blog/asserts/"
-  ;;      :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-  ;;      :publishing-directory "~/git/org-blog/publish/"
-  ;;      :recursive t
-  ;;      :publishing-function org-publish-attachment
-  ;;      )
-  ;;     ("blog" :components ("blog-notes" "blog-static"))
-  ;;     ;;
-  ;;     ))
+      ;;      :author "emacsist"
+      ;;      :email "emacsist@.qq.com"
+      ;;      :html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/emacsist/css/org-mode.css\"/>"
+      ;;      :language "zh-CN"
+      ;;      )
+      ;;     ("blog-static"
+      ;;      :base-directory "~/git/org-blog/asserts/"
+      ;;      :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+      ;;      :publishing-directory "~/git/org-blog/publish/"
+      ;;      :recursive t
+      ;;      :publishing-function org-publish-attachment
+      ;;      )
+      ;;     ("blog" :components ("blog-notes" "blog-static"))
+      ;;     ;;
+      ;;     ))
 
 
 
