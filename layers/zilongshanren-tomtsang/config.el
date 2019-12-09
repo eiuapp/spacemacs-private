@@ -215,3 +215,22 @@ func main() {
 (setq save-abbrevs nil)
 
 (setq user-mail-address "273412935@qq.com")
+
+(defvar org-agenda-dir ""
+  "gtd org files location")
+
+(defvar deft-dir ""
+  "deft org files locaiton")
+
+(defvar blog-admin-dir ""
+  "blog-admin files location")
+
+(if (and (spacemacs/system-is-mswindows) window-system)
+    (setq
+     org-agenda-dir "f:/org-notes"
+     deft-dir "f:/org-notes"
+     blog-admin-dir "f:/zilongshanren.com")
+  (setq
+   org-agenda-dir "~/org/gtd"
+   deft-dir "~/org/gtd"
+   blog-admin-dir "~/zilongshanren.com"))
