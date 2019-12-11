@@ -43,7 +43,8 @@
   (zilongshanren/pomodoro-notification))
 
 ;; if use, let the function name be: `tomtsang-org/post-init-org
-(defun tomtsang-org/post-init-org-worg-css ()
+;; defun tomtsang-org/post-init-org-worg-css ()
+(defun tomtsang-org/post-init-org ()
   "use the worg css.
 
 the css is orgmode.org used.
@@ -60,7 +61,8 @@ the prerequisites: read the `blog/css-for-org-exported-html.html`
 ;; http://freizl.github.io/posts/2012-04-06-export-orgmode-file-in-Chinese.html
 ;;http://stackoverflow.com/questions/21005885/export-org-mode-code-block-and-result-with-different-styles
 ;; from zilongshanren. if use, let the function name be: `tomtsang-org/post-init-org
-(defun tomtsang-org/post-init-org ()
+;; defun tomtsang-org/post-init-org-zilongshanren ()
+(defun tomtsang-org/post-init-org-zilongshanren ()
   (add-hook 'org-mode-hook (lambda () (spacemacs/toggle-line-numbers-off)) 'append)
   (with-eval-after-load 'org
     (progn
