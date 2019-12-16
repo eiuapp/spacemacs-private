@@ -1,6 +1,6 @@
 ;;; funcs.el --- zilongshanren Layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015-2016 zilongshanren 
+;; Copyright (c) 2015-2016 zilongshanren
 ;;
 ;; Author: zilongshanren <guanghui8827@gmail.com>
 ;; URL: https://github.com/zilongshanren/spacemacs-private
@@ -168,3 +168,32 @@
     (unless noinsert
       (insert output-string))
     output-string))
+
+;; *******************************************************************
+;; start zack common defun:
+
+;;自动更新blog
+(defun my-update-wiki-no-commit-message ()
+  (interactive)
+  (org-publish "worg")
+  (shell-command (concat "cd " worg-htmlroot " && git add -A && git ci -m 'update blog' && git push"))
+  (shell-command (concat "cd " worg-base " && git add -A && git ci -m 'update blogsrc' && git push")))
+;; (global-set-key (kbd "<f6>") 'my-update-blog)
+
+(defun my-update-wiki (commit_message)
+  (interactive "sEnter commit message:")
+  (org-publish "worg")
+  (shell-command (concat "cd " worg-htmlroot " && git add -A && git ci -m '" commit_message "' && git push"))
+  (shell-command (concat "cd " worg-base " && git add -A && git ci -m '" commit_message "' && git push")))
+(global-set-key (kbd "<f6>") 'my-update-wiki)
+
+(defun my-update-org-publish (org_publish_project commit_message)
+  (interactive "sEnter org publish project name:
+sEnter commit message:")
+  (org-publish (concat "" org_publish_project))
+  (shell-command (concat "cd " worg-htmlroot " && git add -A && git ci -m '" commit_message "' && git push"))
+  (shell-command (concat "cd " worg-base " && git add -A && git ci -m '" commit_message "' && git push")))
+;; (global-set-key (kbd "<f6>") 'my-update-org-publish)
+
+;; end zack common defun:
+;; *****************************************************************

@@ -1064,3 +1064,25 @@ WARNING: this is a simple implementation. The chance of generating the same UUID
 
 ;; end xah practical emacs tutorial:
 ;; http://ergoemacs.org/emacs/emacs.html
+
+
+;; *******************************************************************
+;; start zack common defun:
+
+;;自动更新blog
+(defun my-update-blog-no-commit-message ()
+  (interactive)
+  (org-publish "worg")
+  (shell-command (concat "cd " worg-htmlroot " && git add -A && git ci -m 'update blog' && git push"))
+  (shell-command (concat "cd " worg-base " && git add -A && git ci -m 'update blogsrc' && git push")))
+;; (global-set-key (kbd "<f6>") 'my-update-blog-no-commit-message)
+
+(defun my-update-blog (commit_message)
+  (interactive "sEnter commit message:")
+  (org-publish "worg")
+  (shell-command (concat "cd " worg-htmlroot " && git add -A && git ci -m '" commit_message "' && git push"))
+  (shell-command (concat "cd " worg-base " && git add -A && git ci -m '" commit_message "' && git push")))
+;; (global-set-key (kbd "<f6>") 'my-update-blog)
+
+;; end zack common defun:
+;; ******************************************************************
