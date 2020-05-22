@@ -234,3 +234,5 @@ func main() {
    org-agenda-dir "~/org/gtd"
    deft-dir "~/org/gtd"
    blog-admin-dir "~/zilongshanren.com"))
+
+(global-set-key (kbd "<f6>") 'my-update-wiki)

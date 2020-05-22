@@ -14,7 +14,7 @@
  '(ctags-update-delay-seconds 1024)
  '(custom-safe-themes
    (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "a2cde79e4cc8dc9a03e7d9a42fabf8928720d420034b66aecc5b665bbf05d4e9" default)))
+    ("2809bcb77ad21312897b541134981282dc455ccd7c14d74cc333b6e549b824f3" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "a2cde79e4cc8dc9a03e7d9a42fabf8928720d420034b66aecc5b665bbf05d4e9" default)))
  '(erc-nick "zilongshanren")
  '(erc-port 6666)
  '(evil-want-C-i-jump t)
@@ -32,7 +32,7 @@
  '(lua-documentation-url "http://www.lua.org/manual/5.3/manual.html")
  '(magit-use-overlays nil)
  '(only-global-abbrevs t)
- '(org-agenda-custom-commands nil t)
+ '(org-agenda-custom-commands nil)
  '(org-agenda-files
    (quote
     ("~/org/ubuntu/update-kernel/update-kernel.org" "~/org/ubuntu/ubuntu-desktop/index.org" "~/org/ubuntu/index.org" "~/org/ubuntu/how-to-install-certificates-for-command-line.org" "~/org/all-posts.org" "~/org/README.org" "~/org/golang.org" "~/org/journal.org" "~/org/gtd.org" "~/org/emacs/emacs.org" "~/org/emacs/eshell.org" "~/org/emacs/yasnippet.org" "~/org/inbox.org" "~/org/env.org" "~/org/k8s/source.org" "~/org/k8s/cephfs/index.org" "~/org/k8s/storage.org" "~/org/k8s/nfs-k8s-yaml.org" "~/org/k8s/install/kubeadm-install-faq.org" "~/org/k8s/install/index.org" "~/org/k8s/upgrade/index.org" "~/org/k8s/index.org" "~/org/mac.org" "~/org/shell/file.org" "~/org/notes.org" "~/org/sed/sed-string.org" "~/org/vim-redo.org" "~/org/hugo/themes/jane/index.org" "~/org/hugo/hugo-archetypes.org" "~/org/hugo/hugo-emacs.org" "~/org/hugo/hugo-server-faq.org" "~/org/docker/docker-registry/index.org" "~/org/docker/docker-install-ubuntu/docker-install-ubuntu.org" "~/org/docker/index.org" "~/org/git.org")))
