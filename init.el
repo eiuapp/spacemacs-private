@@ -1025,6 +1025,12 @@ unwanted space when exporting org-mode to hugo markdown."
   (switch-to-buffer "*Bookmark List*")
   ;; end save bookmarks
 
+  ;; start use vscode-dark-emacs-theme
+  ;; dir: site-lisp/extensions/vscode-dark-emacs-theme
+  (add-to-list 'custom-theme-load-path "~/.spacemacs.d/site-lisp/extensions/vscode-dark-emacs-theme/")
+  (load-theme 'vscode-dark t)
+  ;; end use vscode-dark-emacs-theme
+  
   )
 
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))

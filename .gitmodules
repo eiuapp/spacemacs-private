@@ -31,3 +31,6 @@
 	path = site-lisp/extensions/worg-css
 	url = https://github.com/eiuapp/worg-css.git
 	branch = master
+[submodule "site-lisp/extensions/vscode-dark-emacs-theme"]
+	path = site-lisp/extensions/vscode-dark-emacs-theme
+	url = https://github.com/ianpan870102/vscode-dark-emacs-theme
